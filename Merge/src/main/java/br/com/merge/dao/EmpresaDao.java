@@ -64,7 +64,10 @@ public class EmpresaDao {
 		stmt.setString(4, empresa.getResponsavel());
 		stmt.setString(5, empresa.getEmail());
 		stmt.setString(6, empresa.getSenha());
-		stmt.setString(7, empresa.getStatusLogin());
+		stmt.setString(7, "A");
+		stmt.setString(8, "E");
+		stmt.setInt(9, empresa.getCodigo());
+		System.out.println(empresa.toString());
 		
 		
 		int qtd = stmt.executeUpdate();

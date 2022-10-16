@@ -34,20 +34,31 @@ public class CurriculoResource {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Curriculo curriculo, @PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		curriculoBo = new 	CurriculoBo(conexao = ConnetionFactoy.getConnection());
-		curriculo.setCodigo(id);
-		curriculoBo.atualizar(curriculo);
+			
+		
+		try {
+
+			curriculoBo = new 	CurriculoBo(conexao = ConnetionFactoy.getConnection());
+			curriculo.setCodigo(id);
+			curriculoBo.atualizar(curriculo);
+			return Response.status(200)
+					.header("Acess-Control-Allow-Origin", "*")
+					.header("Acess-Control-Allow-Credentials", "true")
+					.header("Acess-Control-Allow-Headers", 
+							"origin, content-type, accept, authorization")
+					.header("Acess-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+					.entity("\"mensagem\": \"Atualizado com sucesso\"").type(MediaType.APPLICATION_JSON)
+					.build();
+		}catch(IdNotFoundException e ) {
+			return Response.status(404).build();
+		}finally {
+			conexao.close();
+		}
+		
 		
 
 
-		return Response.status(200)
-				.header("Acess-Control-Allow-Origin", "*")
-				.header("Acess-Control-Allow-Credentials", "true")
-				.header("Acess-Control-Allow-Headers", 
-						"origin, content-type, accept, authorization")
-				.header("Acess-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-				.entity("\"mensagem\": \"Atualizado com sucesso\"").type(MediaType.APPLICATION_JSON)
-				.build();
+		
 
 	
 	}
