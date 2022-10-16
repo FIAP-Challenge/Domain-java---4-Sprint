@@ -10,66 +10,47 @@ import javax.xml.bind.annotation.XmlRootElement;
  *@author Dennys Nascimenro 
  *@author Luan Reis
  *@author Gustavo Fonseca
- *@author Rodrigo Machado
  *
  */
 @XmlRootElement
 public class Curso {
 	
 
-	
+	/**
+	 * Armazena o nome do curso
+	 */
 	private String nome;
 	
+	/**
+	 * Construtor sem atributos
+	 */
+	public Curso() {
+	}
 	
-	
-	
-
-	
-
-
-
+	/**
+	 * Construtor com atributos
+	 * @param nome
+	 */
 	public Curso(String nome) {
 		super();
 		this.nome = nome;
 	}
 
-
-
-
-
-
-
+	/**
+	 * Retorna o nome do curso
+	 * @return nome do curso
+	 */
 	public String getNome() {
 		return nome;
 	}
 
-
-
-
-
-
-
+	/**
+	 * Altera o nome do curso
+	 * @param nome do curso
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-
-
-
-
-
-	public Curso() {
-		super();
-	}
-
-
-
-
-	
-	
-	
-	
-	
 	
 }

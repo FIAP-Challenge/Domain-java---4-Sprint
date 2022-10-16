@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *@author Dennys Nascimenro 
  *@author Luan Reis
  *@author Gustavo Fonseca
- *@author Rodrigo Machado
  *
  */
 @XmlRootElement
@@ -43,7 +42,14 @@ public class Curriculo {
 	public Curriculo() {
 	}
 
-
+	/**
+	 * Construtor com atributos
+	 * @param codigo
+	 * @param Lista de cursos
+	 * @param Lista de Formações
+	 * @param Lista de idiomas
+	 * @param data
+	 */
 	public Curriculo(int codigo,List<Curso> cursos, List<Formacao> formacoes, List<Idiomas> idiomas,  String data) {
 		super();
 		this.codigo = codigo;

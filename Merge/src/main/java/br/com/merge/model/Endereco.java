@@ -79,10 +79,18 @@ public class Endereco {
 		this.numeroLogradouro = numeroLogradouro;
 	}
 
+	/**
+	 * Retorna o codigo do endereco
+	 * @return codigo
+	 */
 	public Integer getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * Altera o codigo do endereco
+	 * @param codigo
+	 */
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
@@ -150,11 +158,6 @@ public class Endereco {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-
-	/**
-	 * Retorna a descrição do ponto de referencia do endereco
-	 * @return  a descrição do ponto de referencia
-	 */
 
 	/**
 	 * Retorna o nome da cidade do endereco
