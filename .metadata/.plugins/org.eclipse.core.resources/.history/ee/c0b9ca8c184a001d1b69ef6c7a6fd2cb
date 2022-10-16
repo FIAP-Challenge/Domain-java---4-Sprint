@@ -1,0 +1,50 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import br.com.merge.dao.CursoDao;
+import br.com.merge.dao.DiscDao;
+import br.com.merge.dao.TelefoneDao;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Curso;
+import br.com.merge.model.Disc;
+
+public class CursoBo {
+	
+	private CursoDao cursoDao;
+	private Connection conexao;
+
+
+	
+	public CursoBo(Connection conexao) {
+		cursoDao = new CursoDao(conexao);
+	}
+
+	
+	public void cadastrar(Curso curso) throws SQLException, ClassNotFoundException {
+		
+		
+		cursoDao.cadastrar(curso);
+		
+		
+	}
+	
+	public Disc listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		return discDao.select(id);
+	}
+	
+	
+	public void atualizar(Disc disc, int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+		
+		discDao.atualizar(disc, id);
+	}
+
+	public void remover(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+		discDao.remover(id);
+
+	}
+	
+	
+}

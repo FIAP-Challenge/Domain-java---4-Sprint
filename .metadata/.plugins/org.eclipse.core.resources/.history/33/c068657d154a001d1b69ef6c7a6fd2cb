@@ -1,0 +1,8 @@
+package br.com.merge.dao;
+
+public class Snippet {
+	public static void main(String[] args) {
+		SQ_T_MERGE_CANDIDATO.CURRVAL
+	}
+}
+

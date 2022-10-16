@@ -1,0 +1,247 @@
+package br.com.merge.model;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Classe que representa uma Vaga 
+ *@author Henrique Cesar
+ *@author Dennys Nascimenro 
+ *@author Luan Reis
+ *@author Gustavo Fonseca
+ *@author Rodrigo Machado
+ *
+ */
+
+@XmlRootElement
+public class Vaga {
+	
+	
+	private int codigo;
+	/**
+	 * Armazena o nome do cargo, descricao do cargo, descricao dos requisitos, valor da remuneracao, descricao dos beneficios
+	 * descricao do modo de trabalho e descricao da historia da empresa
+	 */
+	private String nmCargo, dsCargo, vlRemuneracao, dsRequisitos,  dsBeneficios, dsModoTrab, dsHistEmp;
+	
+	/**
+	 *Armazena a carga horaria da vaga 
+	 */
+	private int hrCarga;
+	
+	/**
+	 * Armazena a lista de curriculos nessa vaga
+	 */
+	private List<Curriculo> curriculo;
+	
+	/**
+	 * Armazena a empresa desta vaga
+	 */
+	private Empresa empresa;
+
+	/**
+	 * Construtor padrao
+	 */
+	public Vaga() {
+	}
+
+	/**
+	 * Construtor que recebe o nome do cargo, descricao do cargo, descricao dos requisitos, valor da remuneracao, descricao dos beneficios
+	 * descricao do modo de trabalho, descricao da historia da empresa, a carga horaria da vaga, a lista de curriculos nessa vaga
+	 * e a empresa desta vaga
+	 * @param nome do Cargo
+	 * @param descricao do Cargo
+	 * @param descricao de Requisitos
+	 * @param valor da Remuneracao
+	 * @param descricao beneficios
+	 * @param descricao do modo de trabalho
+	 * @param descricao da historia da empresa
+	 * @param carga horaria
+	 * @param colecao de curriculos para a vaga
+	 * @param empresa da vaga
+	 */
+	public Vaga(String nmCargo, String dsCargo,String dsRequisitos, String vlRemuneracao,
+			String dsBeneficios, String dsModoTrab, String dsHistEmp, Date hrCarga, List<Curriculo> curriculo,
+			Empresa empresa) {
+		this.nmCargo = nmCargo;
+		this.dsCargo = dsCargo;
+		this.dsRequisitos = dsRequisitos;
+		this.vlRemuneracao = vlRemuneracao;
+		this.dsBeneficios = dsBeneficios;
+		this.dsModoTrab = dsModoTrab;
+		this.dsHistEmp = dsHistEmp;
+		this.hrCarga = hrCarga;
+		this.curriculo = curriculo;
+		this.empresa = empresa;
+	}
+
+	/**
+	 * Retorna o nome do cargo da vaga
+	 * @return o nome do cargo da vaga
+	 */
+	public String getNmCargo() {
+		return nmCargo;
+	}
+
+	/**
+	 * Altera o nome do cargo da vaga
+	 * @paramo nome do cargo da vaga
+	 */
+	public void setNmCargo(String nmCargo) {
+		this.nmCargo = nmCargo;
+	}
+
+	/**
+	 * Retorna a descricao do cargo da vaga
+	 * @return a descricao do cargo da vaga
+	 */
+	public String getDsCargo() {
+		return dsCargo;
+	}
+
+	/**
+	 * Altera a descricao do cargo da vaga
+	 * @paramo a descricao do cargo da vaga
+	 */
+	public void setDsCargo(String dsCargo) {
+		this.dsCargo = dsCargo;
+	}
+
+	/**
+	 * Retorna a descricao  de requisitos da vaga
+	 * @return a descricao  de requisitos da vaga
+	 */
+	public String getDsRequisitos() {
+		return dsRequisitos;
+	}
+
+	/**
+	 * Altera a descricao  de requisitos da vaga
+	 * @paramo a descricao  de requisitos da vaga
+	 */
+	public void setDsRequisitos(String dsRequisitos) {
+		this.dsRequisitos = dsRequisitos;
+	}
+
+	/**
+	 * Retorna valor da remuneracao da vaga
+	 * @return valor da remuneracao da vaga
+	 */
+	public String getVlRemuneracao() {
+		return vlRemuneracao;
+	}
+
+	/**
+	 * Altera valor da remuneracao da vaga
+	 * @paramo valor da remuneracao da vaga
+	 */
+	public void setVlRemuneracao(String vlRemuneracao) {
+		this.vlRemuneracao = vlRemuneracao;
+	}
+
+	/**
+	 * Retorna a descricao de beneficios da vaga
+	 * @return a descricao de beneficios da vaga
+	 */
+	public String getDsBeneficios() {
+		return dsBeneficios;
+	}
+
+	/**
+	 * Altera a descricao de beneficios da vaga
+	 * @paramo a descricao de beneficios da vaga
+	 */
+	public void setDsBeneficios(String dsBeneficios) {
+		this.dsBeneficios = dsBeneficios;
+	}
+
+	/**
+	 * Retorna a descricao do modo de trabalho da vaga
+	 * @return a descricao do modo de trabalho da vaga
+	 */
+	public String getDsModaTrab() {
+		return dsModoTrab;
+	}
+
+	/**
+	 * Altera a descricao do modo de trabalho da vaga
+	 * @paramo a descricao do modo de trabalho da vaga
+	 */
+	public void setDsModaTrab(String dsModoTrab) {
+		this.dsModoTrab = dsModoTrab;
+	}
+
+	/**
+	 * Retorna a descricao da historia da empresa na vaga
+	 * @return a descricao da historia da empresa na vaga
+	 */
+	public String getDsHistEmp() {
+		return dsHistEmp;
+	}
+
+	/**
+	 * Altera a descricao da historia da empresa na vaga
+	 * @paramo a descricao da historia da empresa na vaga
+	 */
+	public void setDsHistEmp(String dsHistEmp) {
+		this.dsHistEmp = dsHistEmp;
+	}
+
+	/**
+	 * Retorna a carga horaria da vaga
+	 * @return a carga horaria da vaga
+	 */
+	public Date getHrCarga() {
+		return hrCarga;
+	}
+
+	/**
+	 * Altera a carga horaria da vaga
+	 * @paramo a carga horaria da vaga
+	 */
+	public void setHrCarga(Date hrCarga) {
+		this.hrCarga = hrCarga;
+	}
+
+	/**
+	 * Retorna a colecao de curriculos da vaga
+	 * @return a colecao de curriculos da vaga
+	 */
+	public List<Curriculo> getCurriculo() {
+		return curriculo;
+	}
+
+	/**
+	 * Altera a colecao de curriculos da vaga
+	 * @paramo a colecao de curriculos da vaga
+	 */
+	public void setCurriculo(List<Curriculo> curriculo) {
+		this.curriculo = curriculo;
+	}
+
+	/**
+	 * Retorna a empresa relacionada a vaga
+	 * @return a empresa relacionada a vaga
+	 */
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	/**
+	 * Altera a empresa relacionada a vaga
+	 * @paramo a empresa relacionada a vaga
+	 */
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+	
+	/**
+	 * Adiciona um curriculo na vaga
+	 * @param curriculo 
+	 */
+	public void addCurriculo(Curriculo curriculo) {
+		this.curriculo.add(curriculo);
+	}
+}

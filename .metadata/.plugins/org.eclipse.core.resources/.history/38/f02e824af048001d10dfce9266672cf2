@@ -1,0 +1,172 @@
+package br.com.merge.model;
+
+
+/**
+ * Classe que representa uma Vaga 
+ *@author Henrique Cesar
+ *@author Dennys Nascimenro 
+ *@author Luan Reis
+ *@author Gustavo Fonseca
+ *@author Rodrigo Machado
+ *
+ */
+
+@XmlRootElement
+public class Vaga {
+	
+	
+	private int codigo;
+	
+	private String nome;
+	
+	private String cargo, DescricaoCargo, remuneracao,  beneficios;
+
+	/**
+	 *Armazena a carga horaria da vaga 
+	 */
+	private int cargaHoraria;
+	
+	private String modoTrabalho, historiaEmpresa;
+	
+	
+
+
+
+
+	public Vaga(int codigo, String nome, String cargo, String descricaoCargo, String remuneracao, String beneficios,
+			int cargaHoraria, String modoTrabalho, String historiaEmpresa) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.cargo = cargo;
+		DescricaoCargo = descricaoCargo;
+		this.remuneracao = remuneracao;
+		this.beneficios = beneficios;
+		this.cargaHoraria = cargaHoraria;
+		this.modoTrabalho = modoTrabalho;
+		this.historiaEmpresa = historiaEmpresa;
+	}
+
+
+
+	public Vaga() {
+		super();
+	}
+
+
+	
+	
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	
+	
+
+
+	public String getCargo() {
+		return cargo;
+	}
+
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+
+
+	public String getDescricaoCargo() {
+		return DescricaoCargo;
+	}
+
+
+
+	public void setDescricaoCargo(String descricaoCargo) {
+		DescricaoCargo = descricaoCargo;
+	}
+
+
+
+	public String getRemuneracao() {
+		return remuneracao;
+	}
+
+
+
+	public void setRemuneracao(String remuneracao) {
+		this.remuneracao = remuneracao;
+	}
+
+
+
+	public String getBeneficios() {
+		return beneficios;
+	}
+
+
+
+	public void setBeneficios(String beneficios) {
+		this.beneficios = beneficios;
+	}
+
+
+
+	public int getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+
+
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+
+
+	public String getModoTrabalho() {
+		return modoTrabalho;
+	}
+
+
+
+	public void setModoTrabalho(String modoTrabalho) {
+		this.modoTrabalho = modoTrabalho;
+	}
+
+
+
+	public String getHistoriaEmpresa() {
+		return historiaEmpresa;
+	}
+
+
+
+	public void setHistoriaEmpresa(String historiaEmpresa) {
+		this.historiaEmpresa = historiaEmpresa;
+	}
+	
+	
+	
+	
+	
+}
+

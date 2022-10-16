@@ -1,0 +1,31 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import br.com.merge.dao.CandidatoDao;
+import br.com.merge.dao.EnderecoDao;
+import br.com.merge.model.Candidato;
+import br.com.merge.model.Endereco;
+
+public class EnderecoBo {
+	
+	private EnderecoDao endereco;
+	
+
+	
+	public EnderecoBo(Connection conexao) {
+		EnderecoDao = new EnderecoDao(conexao);
+	}
+
+	
+	public void cadastrar(Endereco end) throws SQLException, ClassNotFoundException {
+		endereco = new EnderecoDao();
+		endereco.cadastrar(end);
+		
+		
+	}
+	
+	
+	
+}

@@ -1,0 +1,17 @@
+package br.com.merge.excetion;
+
+public class DadoInvalidoException extends Exception {
+
+	
+	private String mensagem;
+	
+	public DadoInvalidoException() {
+		super("Dado invalido");
+	}
+	
+	public DadoInvalidoException(String msg) {
+		super(msg);
+		this.mensagem = msg;
+	}
+	
+}

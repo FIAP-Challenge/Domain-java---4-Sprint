@@ -1,0 +1,117 @@
+package br.com.merge.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Disc;
+import br.com.merge.model.Endereco;
+
+public class DiscDao {
+
+	private Connection conexao;
+
+	/**
+	 * Coleção que armazena os Endereço da aplicacao
+	 */
+	List<Disc> listaDisc = new ArrayList<>();
+
+	public DiscDao(Connection conexao) {
+		this.conexao = conexao;
+	}
+
+	public void cadastrar(Disc disc) throws SQLException {
+
+		PreparedStatement stmt = conexao.prepareStatement("insert into T_MERGE_DISC values "
+				+ "(sq_t_merge_candidato.currval, sq_t_merge_disc.nextval, ?, ?, ?, ?)");
+
+		stmt.setInt(1, disc.getDominante());
+		stmt.setInt(2, disc.getEstavel());
+		stmt.setInt(3, disc.getInfluente());
+		stmt.setInt(4, disc.getCondescendente());
+
+		stmt.executeUpdate();
+	}
+
+	public void cadastrar(Disc disc, int id) throws SQLException {
+
+		PreparedStatement stmt = conexao.prepareStatement("insert into T_MERGE_DISC values "
+				+ "(sq_t_merge_candidato.currval, sq_t_merge_disc.nextval, ?, ?, ?, ?) where id_candidato = ?");
+
+		stmt.setInt(1, disc.getDominante());
+		stmt.setInt(2, disc.getEstavel());
+		stmt.setInt(3, disc.getInfluente());
+		stmt.setInt(4, disc.getCondescendente());
+		stmt.setInt(5, id);
+
+		stmt.executeUpdate();
+	}
+
+	public void atualizar(Disc disc, int id) throws SQLException, IdNotFoundException {
+		// Criar o PreparedStatement com o comando SQL de update
+		PreparedStatement stmt = conexao.prepareStatement("update T_MERGE_DISC set "
+				+ "NR_DOMINANTE = ?, NR_ESTAVEL = ?, NR_INFLUENTE = ?, NR_CONDESCENDENTE = ? where ID_CANDIDATO = ?");
+
+		System.out.println("ID QUE RECEBI: " + id);
+		// Setar os valores na query
+		stmt.setInt(1, disc.getDominante());
+		stmt.setInt(2, disc.getEstavel());
+		stmt.setInt(3, disc.getInfluente());
+		stmt.setInt(4, disc.getCondescendente());
+		stmt.setInt(5, id);
+
+		// Executar a query e recuperar a qtd de linhas afetadas no banco
+		int qtd = stmt.executeUpdate();
+
+		// Verifica se algum registro foi modificado no banco
+		if (qtd == 0)
+			throw new IdNotFoundException("ID NÃO ENCONTRADO PARA ATUALIZAR");
+	}
+
+	public Disc select(int id) throws SQLException, IdNotFoundException {
+		
+		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_DISC where ID_CANDIDATO = ?");
+		
+		stmt.setInt(1, id);
+		
+		ResultSet result = stmt.executeQuery();
+		
+		int codigo = result.getInt("CD_DISC");
+		int dominante = result.getInt("NR_DOMINANTE");
+		int estavel = result.getInt("NR_ESTAVEL");
+		int influente = result.getInt("NR_INFLUENTE");
+		int condescendente = result.getInt("NR_CONDESCENDENTE");
+		
+		System.out.println(codigo+ "," +dominante+ "," +estavel+ "," +influente+ "," +condescendente);
+		
+		if(!result.next()) {
+			throw new IdNotFoundException("DISC NAO ENCONTRADO");
+		}
+		
+		
+		
+		
+		Disc disc = new Disc(codigo, dominante, estavel, influente, condescendente);	
+		System.out.println("MEU DISC" + disc.toString());
+		return disc;
+	}
+
+	public void remover(int id) throws SQLException, IdNotFoundException {
+
+		PreparedStatement stmt = conexao
+				.prepareStatement("DELETE FROM T_MERGE_ENDERECO WHERE ID_ENDERECO_CANDIDATO = ?");
+
+		stmt.setInt(1, id);
+
+		int quantidadeDadosAfetados = stmt.executeUpdate();
+
+		if (quantidadeDadosAfetados == 0) {
+			throw new IdNotFoundException("ID NÃO ENCONTRADO PARA REMOÇÃO");
+		}
+	}
+
+}

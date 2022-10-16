@@ -1,0 +1,8 @@
+package br.com.merge.model;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Disc {
+
+}

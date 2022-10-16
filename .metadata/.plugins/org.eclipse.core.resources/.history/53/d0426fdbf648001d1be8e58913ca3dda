@@ -1,0 +1,66 @@
+package br.com.merge.model;
+
+public class Candidatura {
+	
+	
+	
+	private int codigo;
+	
+	private String dataCadastro;
+	
+	
+	private String status;
+	
+	
+	private String resultado;
+	
+	
+	
+	
+	public Candidatura(int codigo, String dataCadastro, String status, String resultado) {
+		super();
+		this.codigo = codigo.
+		this.dataCadastro = dataCadastro;
+		this.status = status;
+		this.resultado = resultado;
+	}
+	
+	
+	public Candidatura() {
+		super();
+	}
+
+
+
+	public String getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(String dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getResultado() {
+		return resultado;
+	}
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Candidatura [dataCadastro=" + dataCadastro + ", status=" + status + ", resultado=" + resultado + "]";
+	}
+
+
+
+	
+	
+	
+	
+}

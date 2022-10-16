@@ -1,0 +1,5 @@
+package br.com.merge.dao;
+
+public class DiscDao {
+
+}

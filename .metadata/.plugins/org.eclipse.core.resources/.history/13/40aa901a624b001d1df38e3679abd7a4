@@ -1,0 +1,43 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import br.com.merge.dao.CandidatoDao;
+import br.com.merge.excetion.DadoInvalidoException;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Candidato;
+import br.com.merge.model.Disc;
+import br.com.merge.model.Empresa;
+
+public class LoginUserBo {
+
+	private CandidatoDao candidato;
+	private EnderecoBo enderecobo;
+	private TelefoneBo telefonebo;
+	private CurriculoBo curriculobo;
+	private DiscBo discBo;
+	private Connection conexao;
+
+	public LoginUserBo(Connection conexao) {
+		this.conexao = conexao;
+		candidato = new CandidatoDao(conexao);
+		telefonebo = new TelefoneBo(conexao);
+		enderecobo = new EnderecoBo(conexao);
+		curriculobo = new CurriculoBo(conexao);
+		discBo = new DiscBo(conexao);
+	}
+
+
+	public Candidato listar(String email, Senha) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		return candidato.select(cpf);
+	}
+
+	public Empresa listar(String cpf) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		return candidato.select(cpf);
+	}
+	
+
+}

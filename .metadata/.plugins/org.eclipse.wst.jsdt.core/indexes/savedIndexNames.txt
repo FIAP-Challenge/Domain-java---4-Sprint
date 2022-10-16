@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+D:\FIAP\4ªSprint\Domain driven\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3280249597.index
+674321459.index
+1539592305.index
+3039956261.index
+3967901635.index
+637806191.index

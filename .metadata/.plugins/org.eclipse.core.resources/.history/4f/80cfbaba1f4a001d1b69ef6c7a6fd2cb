@@ -1,0 +1,62 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import br.com.merge.dao.CurriculoDao;
+import br.com.merge.dao.CursoDao;
+import br.com.merge.dao.DiscDao;
+import br.com.merge.dao.TelefoneDao;
+import br.com.merge.excetion.DadoInvalidoException;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Curriculo;
+import br.com.merge.model.Curso;
+import br.com.merge.model.Disc;
+
+public class CurriculoBo {
+
+	private CurriculoDao curriculoDao;
+	private CursoBo cursoBo;
+	private TelefoneBo telefonebo;
+	private Connection conexao;
+
+	public CurriculoBo(Connection conexao) {
+		curriculoDao = new CurriculoDao(conexao);
+		cursoBo = new CursoBo(conexao);
+	}
+
+	public void cadastrar(Curriculo curriculo) throws SQLException, ClassNotFoundException {
+
+		curriculoDao.cadastrar(curriculo);
+		System.out.println("CURRICULO");
+
+		if (curriculo.getCursos().size() > 0) {
+
+			for (int i = 0; i < curriculo.getCursos().size(); i++) {
+				
+				System.out.println(curriculo.getCursos().get(i).toString());
+				cursoBo.cadastrar(curriculo.getCursos().get(i));
+				
+			}
+
+		}
+
+}
+
+//	public Curso listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+//
+//		return 		cursoDao.select(id);
+//	}
+//	
+//	
+//	public void atualizar(Disc disc, int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+//		
+//		di		cursoDaoscDao.atualizar(disc, id);
+//	}
+//
+//	public void remover(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+//		discDao.remover(id);
+//
+//	}
+
+}

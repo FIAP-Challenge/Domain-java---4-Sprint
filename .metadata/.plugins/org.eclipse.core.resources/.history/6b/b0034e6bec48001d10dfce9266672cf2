@@ -1,0 +1,44 @@
+package br.com.merge.model;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Classe que representa uma Vaga 
+ *@author Henrique Cesar
+ *@author Dennys Nascimenro 
+ *@author Luan Reis
+ *@author Gustavo Fonseca
+ *@author Rodrigo Machado
+ *
+ */
+
+@XmlRootElement
+public class Vaga {
+	
+	
+	private int codigo;
+	/**
+	 * Armazena o nome do cargo, descricao do cargo, descricao dos requisitos, valor da remuneracao, descricao dos beneficios
+	 * descricao do modo de trabalho e descricao da historia da empresa
+	 */
+	private String cargo, DescricaoCargo, remuneracao,  beneficios;
+
+	/**
+	 *Armazena a carga horaria da vaga 
+	 */
+	private int cargaHoraria;
+	
+	private String modoTrabalho, histEmpresa;
+	
+	
+	
+
+	
+	
+	
+	
+}
+

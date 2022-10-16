@@ -1,0 +1,162 @@
+package br.com.merge.model;
+
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *Classe que repesenta um  Curriculo
+ *@author Henrique Cesar
+ *@author Dennys Nascimenro 
+ *@author Luan Reis
+ *@author Gustavo Fonseca
+ *@author Rodrigo Machado
+ *
+ */
+@XmlRootElement
+public class Curriculo {
+	
+	/**
+	 * Armazana uma coleção de cursoss do candidato
+	 */
+	private List<Curso> cursos;
+	
+	/**
+	 * Armazena uma coleçaõ de formações do candidato
+	 */
+	private List<Formacao> formacaos;
+	
+	/**
+	 * Armazena uma coleção de idiomas do candidato
+	 */
+	private List<Idiomas> idiomas;
+	
+	/**
+	 * Armazana uma coleção de habilidades do candidato
+	 */
+	private List<Habilidades> habilidades;
+		
+
+	/**
+	 * Construtor padrão
+	 */
+	public Curriculo() {
+	}
+	
+	/**
+	 * Construtor que recebe uma coleção de cursos, formacao, idioma, habilidade
+	 * @param dsObjetivos
+	 * @param cursos
+	 * @param formacao
+	 * @param idioma
+	 * @param habilidades
+	 */
+	public Curriculo(List<Curso> cursos, List<Formacao> formacoes,
+			List<Idioma> idiomas, List<Habilidades> habilidades) {
+		this.cursos = cursos;
+		this.formacoes = formacoes;
+		this.idioma = idioma;
+		this.habilidades = habilidades;
+	}
+
+	/**
+	 * Retorna a coleção de cursos
+	 * @return coleção de cursos
+	 */
+	public List<cursos> getcursos() {
+		return cursos;
+	}
+
+	/**
+	 * Alterar a coleção de cursos
+	 * @param coleção de cursos
+	 */
+	public void setcursos(List<cursos> cursos) {
+		this.cursos = cursos;
+	}
+
+	/**
+	 * Retorna a coleção de formacao
+	 * @return coleção de formacao
+	 */
+	public List<Formacao> getFormacao() {
+		return formacao;
+	}
+
+	/**
+	 * Alterar a coleção de formacao
+	 * @param coleção de formacao
+	 */
+	public void setFormacao(List<Formacao> formacao) {
+		this.formacao = formacao;
+	}
+
+	/**
+	 * Retorna a coleção de idiomas
+	 * @return coleção de idiomas
+	 */
+	public List<Idiomas> getIdioma() {
+		return idioma;
+	}
+
+	/**
+	 * Altera a coleção de idiomas
+	 * @param colecao de  idiomas
+	 */
+	public void setIdioma(List<Idiomas> idioma) {
+		this.idioma = idioma;
+	}
+
+	/**
+	 * Retorna a coleção de habilidades
+	 * @return coleção de habilidades
+	 */
+	public List<Habilidades> getHabilidades() {
+		return habilidades;
+	}
+
+	/**
+	 * Altera a coleção de habilidades
+	 * @param colecao de habilidades
+	 */
+	public void setHabilidades(List<Habilidades> habilidades) {
+		this.habilidades = habilidades;
+	}
+	
+	/**
+	 * Adiciona um cursos a coleção de cursoss
+	 * @param um cursos
+	 */
+	public void addcursos(cursos cursos) {
+		this.cursos.add(cursos);
+	}
+	
+	/**
+	 *Adiciona uma formacao a coleção de formações
+	 * @param formacao
+	 */
+	public void addFormacao(Formacao formacao) {
+		this.formacao.add(formacao);
+	}
+	
+	/**
+	 * Adiciona um idioma a coleção de idiomas
+	 * @param idioma
+	 */
+	public void addIdioma(Idiomas idioma) {
+		this.idioma.add(idioma);
+	}
+	
+	/**
+	 * Adiciona uma habilidade a coleção de habilidades
+	 * @param habilidade
+	 */
+	public void addHabilidades(Habilidades habilidade) {
+		this.habilidades.add(habilidade);
+	}
+
+	
+	
+	
+	
+}

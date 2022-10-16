@@ -1,0 +1,149 @@
+package br.com.merge.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import br.com.merge.excetion.DadoInvalidoException;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Candidatura;
+import br.com.merge.model.Formacao;
+
+
+public class FormacaoDao {
+
+	private Connection conexao;
+
+
+	public FormacaoDao(Connection conexao) {
+		this.conexao = conexao;
+	}
+
+	public void cadastrar(Formacao candidatura) throws SQLException, DadoInvalidoException  {
+
+		PreparedStatement stmt = conexao.prepareStatement(
+				"insert into T_MERGE_CURRICULO_FORMACAO values "
+						+ "(sq_t_merge_curriculo_formacao.nextval,?, ?, to_date(?,'dd/mm/yyyy'))");
+		
+		System.out.println(candidatura);
+		stmt.setInt(1, candidatura.getCodigoFormacao());
+		stmt.setInt(2, candidatura.getCodigoCurriculo());
+		stmt.setString(3, candidatura.getData());
+		
+
+		System.out.println("FORMACAO DAO" + candidatura.toString());
+		try {
+			
+			stmt.execute("insert into T_MERGE_CURRICULO_FORMACAO values (3,1, 1, to_date('10/10/2020','dd/mm/yyyy'))");
+		}catch(SQLException e){
+			throw new DadoInvalidoException(e.getMessage());	
+		}
+
+		ResultSet result = stmt.getGeneratedKeys();
+		if (result.next()) {
+			int codigo = result.getInt(1);
+			candidatura.setCodigo(codigo);
+		}
+
+	}
+
+	public void atualizar(Candidatura candidatura) throws SQLException, IdNotFoundException {
+		// Criar o PreparedStatement com o comando SQL de update
+		PreparedStatement stmt = conexao.prepareStatement("UPDATE T_MERGE_CANDIDATURA SET DT_CADASTRO = to_date(?,'dd/mm/yyyy'), DS_STATUS = ?, DS_RESULTADO = ?, NR_SCORE_TER = ?  where ID_CANDIDATURA = ?");
+
+	
+		stmt.setString(1, candidatura.getDataCadastro());
+		stmt.setString(2, candidatura.getStatus());
+		stmt.setString(3, candidatura.getResultado());
+		stmt.setInt(4, candidatura.getScore());
+		stmt.setInt(5, candidatura.getCodigo());
+		
+	
+		int qtd = stmt.executeUpdate();
+		
+		if (qtd == 0)
+			throw new IdNotFoundException("Não localizado para alterar");
+
+	}
+
+	
+	public Candidatura select(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_CANDIDATURA where ID_CANDIDATO = ?");
+
+		stmt.setInt(1, id);
+
+		ResultSet result = stmt.executeQuery();
+
+		if (!result.next()) {
+			throw new IdNotFoundException("CANDIDATURA NÃO ENCONTRADO");
+		}
+		int codigoCandidato = result.getInt("ID_CANDIDATO");
+		int codigoVaga = result.getInt("ID_VAGAS");
+		int codigo = result.getInt("ID_CANDIDATURA");
+		String dataCadastro = result.getString("DT_CADASTRO");
+		String status = result.getString("DS_STATUS");
+		String resultado = result.getString("DS_RESULTADO");
+		int score = result.getInt("NR_SCORE_TER");
+			
+		Candidatura candidatura = new Candidatura(codigoCandidato, codigoVaga, codigo, dataCadastro, status, resultado, score);
+		
+	
+
+
+		return candidatura;
+	}
+
+	/**
+	 * Lista os candidatos
+	 * 
+	 * @return a lista de candidatos
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Candidatura> select() throws SQLException, ClassNotFoundException, IdNotFoundException {
+		PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM T_MERGE_CANDIDATURA");
+		ResultSet result = stmt.executeQuery();
+		List<Candidatura> lista = new ArrayList<Candidatura>();
+
+		while (result.next()) {
+			
+			int codigoCandidato = result.getInt("ID_CANDIDATO");
+			int codigoVaga = result.getInt("ID_VAGAS");
+			int codigo = result.getInt("ID_CANDIDATURA");
+			String dataCadastro = result.getString("DT_CADASTRO");
+			String status = result.getString("DS_STATUS");
+			String resultado = result.getString("DS_RESULTADO");
+			int score = result.getInt("NR_SCORE_TER");
+				
+			Candidatura candidatura = new Candidatura(codigoCandidato, codigoVaga, codigo, dataCadastro, status, resultado, score);
+
+			lista.add(candidatura);
+
+		}
+
+		return lista;
+	}
+
+	
+	public void remover(int id) throws SQLException, IdNotFoundException {
+
+		PreparedStatement stmt = conexao.prepareStatement("DELETE FROM T_MERGE_CANDIDATURA WHERE ID_CANDIDATO = ?");
+
+		stmt.setInt(1, id);
+
+		int quantidadeDadosAfetados = stmt.executeUpdate();
+
+		if (quantidadeDadosAfetados == 0) {
+			throw new IdNotFoundException("ID NÃO ENCONTRADO PARA REMOÇÃO");
+
+		}
+
+	}
+
+}

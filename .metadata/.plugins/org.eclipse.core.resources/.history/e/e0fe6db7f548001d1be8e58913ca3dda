@@ -1,0 +1,5 @@
+package br.com.merge.model;
+
+public class Candidatura {
+
+}

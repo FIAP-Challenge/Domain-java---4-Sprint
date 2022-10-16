@@ -1,0 +1,65 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import br.com.merge.dao.CandidaturaDao;
+import br.com.merge.dao.CursoDao;
+import br.com.merge.excetion.DadoInvalidoException;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Candidatura;
+import br.com.merge.model.Curso;
+
+public class CursoBo {
+
+	private CursoDao cursoDao;
+
+	private Connection conexao;
+
+	public CursoBo(Connection conexao) {
+		this.conexao = conexao;
+		cursoDao = new CursoDao(conexao);
+	
+	}
+
+//	public List<Candidatura> listar() throws ClassNotFoundException, SQLException, IdNotFoundException {
+//
+//		return candidatura.select();
+//	}
+//
+//	public Candidatura listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+//
+//		return candidatura.select(id);
+//	}
+
+	public void cadastrar(Curso curso) throws SQLException, ClassNotFoundException, DadoInvalidoException {
+				
+		cursoDao.cadastrar(curso);
+			
+		
+
+
+	}
+
+//	public void atualizar(Candidatura cand) throws ClassNotFoundException, SQLException, IdNotFoundException {
+//		conexao.setAutoCommit(false);
+//		
+//			candidatura.atualizar(cand);
+//			
+//		
+//		
+//
+//		try {
+//			conexao.commit();
+//		} catch (Exception e) {
+//			conexao.rollback();
+//			throw new SQLException("Erro ao realizar o commit");
+//		}
+//	}
+//
+//	public void remover(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+//		candidatura.remover(id);
+//
+//	}
+
+}

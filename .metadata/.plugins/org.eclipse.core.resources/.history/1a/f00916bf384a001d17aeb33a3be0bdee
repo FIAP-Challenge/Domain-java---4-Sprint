@@ -1,0 +1,188 @@
+package br.com.merge.model;
+
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Classe que representa uma formacao
+ *@author Henrique Cesar
+ *@author Dennys Nascimenro 
+ *@author Luan Reis
+ *@author Gustavo Fonseca
+ *@author Rodrigo Machado
+ *
+ */
+
+@XmlRootElement
+public class Formacao {
+	
+	/**
+	 * Armazena o nome da formação, descrição da form, tipo formcao, nome da intituição, nome do estado, sigla do estado 
+	 */
+	private String nmForm, dsForm, tpForm, nmInstituicao, nmEstado, sgEstado;
+	
+	/**
+	 * Armazena a data inicio e data de terminio
+	 */
+	private Date dtInicio, dtTermino;
+
+	/**
+	 * Construtor padrao
+	 */
+	public Formacao() {
+	}
+
+	/**
+	 * Construtor que recebe o nome da formação, descrição da form, tipo formcao, nome da intituição, nome do estado, sigla do estado
+	 * a data inicio e data de terminio
+	 * @param nome formcaco
+	 * @param descricao formacao
+	 * @param tipo formcacao
+	 * @param nome instituicao
+	 * @param nome Estado
+	 * @param sigla do Estado
+	 * @param data Inicio
+	 * @param data terminio
+	 */
+	public Formacao(String nmForm, String dsForm, String tpForm, String nmInstituicao, String nmEstado,
+			String sgEstado, Date dtInicio, Date dtTermino) {
+		this.nmForm = nmForm;
+		this.dsForm = dsForm;
+		this.tpForm = tpForm;
+		this.nmInstituicao = nmInstituicao;
+		this.nmEstado = nmEstado;
+		this.sgEstado = sgEstado;
+		this.dtInicio = dtInicio;
+		this.dtTermino = dtTermino;
+	}
+
+	/**
+	 * Retorna o nome da formacao
+	 * @return nome da formacao
+	 */
+	public String getNmForm() {
+		return nmForm;
+	}
+
+	/**
+	 * Altera o nome da formcao
+	 * @param nmForm
+	 */
+	public void setNmForm(String nmForm) {
+		this.nmForm = nmForm;
+	}
+
+	/**
+	 * Retorna a descricao da formacao
+	 * @return a descricao da formacao
+	 */
+	public String getDsForm() {
+		return dsForm;
+	}
+
+	/**
+	 * Altera a descricao da formacao
+	 * @param a descricao da formacao
+	 */
+	public void setDsForm(String dsForm) {
+		this.dsForm = dsForm;
+	}
+
+	/**
+	 * Retorna o tipo de formacao
+	 * @return o tipo de formacao
+	 */
+	public String getTpForm() {
+		return tpForm;
+	}
+
+	/**
+	 * Altera o tipo de formacao
+	 * @param o tipo de formacao
+	 */
+	public void setTpForm(String tpForm) {
+		this.tpForm = tpForm;
+	}
+
+	/**
+	 * Retorna o nome da instituicao da formacao
+	 * @return o nome da instituicao da formacao
+	 */
+	public String getNmInstituicao() {
+		return nmInstituicao;
+	}
+
+	/**
+	 * Altera o nome da instituicao da formacao
+	 * @param o nome da instituicao da formacao
+	 */
+	public void setNmInstituicao(String nmInstituicao) {
+		this.nmInstituicao = nmInstituicao;
+	}
+
+	/**
+	 * Retorna o nome do Estado da formacao
+	 * @return o nome do Estado da formacao
+	 */
+	public String getNmEstado() {
+		return nmEstado;
+	}
+
+	/**
+	 * Altera o nome do Estado da formacao
+	 * @param o nome do Estado da formacao
+	 */
+	public void setNmEstado(String nmEstado) {
+		this.nmEstado = nmEstado;
+	}
+
+	/**
+	 * Retorna a sigla do Estado da formacao
+	 * @return a sigla do Estado da formacao
+	 */
+	public String getSgEstado() {
+		return sgEstado;
+	}
+
+	/**
+	 * Altera a sigla do Estado da formacao
+	 * @param a sigla do Estado da formacao
+	 */
+	public void setSgEstado(String sgEstado) {
+		this.sgEstado = sgEstado;
+	}
+
+	/**
+	 * Retorna a data de inicio da formacao
+	 * @return a data de inicio da formacao
+	 */
+	public Date getDtInicio() {
+		return dtInicio;
+	}
+
+	/**
+	 * Altera a data de inicio da formacao
+	 * @param a data de inicio da formacao
+	 */
+	public void setDtInicio(Date dtInicio) {
+		this.dtInicio = dtInicio;
+	}
+
+	/**
+	 * Retorna a data de terminio da formacao
+	 * @return a data de terminio da formacao
+	 */
+	public Date getDtTermino() {
+		return dtTermino;
+	}
+
+	/**
+	 * Altera a data de terminio da formacao
+	 * @param a data de terminio da formacao
+	 */
+	public void setDtTermino(Date dtTermino) {
+		this.dtTermino = dtTermino;
+	}
+	
+}
