@@ -24,43 +24,58 @@ import br.com.merge.factory.ConnetionFactoy;
 import br.com.merge.model.Candidatura;
 import br.com.merge.model.Curriculo;
 
+/**
+ * Classe resource de curriculo
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 @Path("/curriculo/")
 public class CurriculoResource {
-	
+
+	/**
+	 * Armazena a conexão
+	 */
 	private Connection conexao;
+
+	/**
+	 * Armazena o curriculoBO
+	 */
 	CurriculoBo curriculoBo;
-	
+
+	/**
+	 * Retorna uma response para o atualizar
+	 * 
+	 * @param curriculo
+	 * @param id
+	 * @throws ClassNotFoundException, SQLException, IdNotFoundException
+	 * @return response
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(Curriculo curriculo, @PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-			
-		
+	public Response atualizar(Curriculo curriculo, @PathParam("id") int id)
+			throws ClassNotFoundException, SQLException, IdNotFoundException {
+
 		try {
 
-			curriculoBo = new 	CurriculoBo(conexao = ConnetionFactoy.getConnection());
+			curriculoBo = new CurriculoBo(conexao = ConnetionFactoy.getConnection());
 			curriculo.setCodigo(id);
 			curriculoBo.atualizar(curriculo);
-			return Response.status(200)
-					.header("Acess-Control-Allow-Origin", "*")
+			return Response.status(200).header("Acess-Control-Allow-Origin", "*")
 					.header("Acess-Control-Allow-Credentials", "true")
-					.header("Acess-Control-Allow-Headers", 
-							"origin, content-type, accept, authorization")
+					.header("Acess-Control-Allow-Headers", "origin, content-type, accept, authorization")
 					.header("Acess-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-					.entity("\"mensagem\": \"Atualizado com sucesso\"").type(MediaType.APPLICATION_JSON)
-					.build();
-		}catch(IdNotFoundException e ) {
+					.entity("\"mensagem\": \"Atualizado com sucesso\"").type(MediaType.APPLICATION_JSON).build();
+		} catch (IdNotFoundException e) {
 			return Response.status(404).build();
-		}finally {
+		} finally {
 			conexao.close();
 		}
-		
-		
 
-
-		
-
-	
 	}
 
 }

@@ -11,6 +11,15 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.model.Requisito;
 import br.com.merge.model.Vaga;
 
+/**
+ * Classe que repesenta um Curriculo
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 public class VagaDao {
 
 	private Connection conexao;
@@ -24,6 +33,7 @@ public class VagaDao {
 		this.conexao = conexao;
 	}
 
+	
 	public void cadastrar(Vaga vaga) throws SQLException {
 
 		String requisitos = null;
@@ -91,6 +101,7 @@ public class VagaDao {
 			throw new IdNotFoundException("ID NÃO ENCONTRADO PARA ATUALIZAR");
 	}
 
+	
 	public Vaga select(int id) throws SQLException, IdNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_VAGAS where ID_vagas = ?");

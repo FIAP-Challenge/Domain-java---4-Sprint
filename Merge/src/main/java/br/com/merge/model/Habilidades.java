@@ -1,16 +1,16 @@
 package br.com.merge.model;
 
 /**
- *Classe que repesenta uma Habilidade
- *@author Henrique Cesar
- *@author Dennys Nascimenro 
- *@author Luan Reis
- *@author Gustavo Fonseca
- *@author Rodrigo Machado
+ * Classe que repesenta uma Habilidade
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
  *
  */
 public class Habilidades {
-	
+
 	/**
 	 * Armazena um nome da habilidade
 	 */
@@ -18,6 +18,7 @@ public class Habilidades {
 
 	/**
 	 * Construtor que recebe o nome da habilidade
+	 * 
 	 * @param nmHabilidade
 	 */
 	public Habilidades(String nmHab) {
@@ -26,6 +27,7 @@ public class Habilidades {
 
 	/**
 	 * Retorna o nome da habilidade do candidato
+	 * 
 	 * @return o nome da habilidade
 	 */
 	public String getNmHabilidade() {
@@ -34,10 +36,11 @@ public class Habilidades {
 
 	/**
 	 * Altera o nome da habilidade do candidato
+	 * 
 	 * @param o nome da habilidade
 	 */
 	public void setNmHabilidade(String nmHab) {
 		this.nmHab = nmHab;
 	}
-	
+
 }

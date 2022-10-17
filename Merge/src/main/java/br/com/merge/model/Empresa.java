@@ -43,7 +43,15 @@ public class Empresa {
 	
 	/**
 	 * Construtor com atributos
-	 * @param codigo, descricao, nome, cnpj, responsavel, email, senha, statusLogin e tipoLogin da empresa
+	 * @param codigo
+	 * @param descricao
+	 * @param nome
+	 * @param cnpj
+	 * @param responsavel
+	 * @param email
+	 * @param senha
+	 * @param statusLogin
+	 * @param tipoLogin da empresa
 	 */
 	public Empresa(int codigo, String descricao, String nome, String cnpj, String responsavel, String email,
 			String senha, String statusLogin, String tipoLogin) {
@@ -61,8 +69,17 @@ public class Empresa {
 	
 	/**
 	 * Construtor com atributos 
-	 * @param codigo, descricao, nome, cnpj, responsavel, email, senha, endereco, telefone,
-	 * statusLogin e o tipoLogin da empresa
+	 * @param codigo
+	 * @param descricao
+	 * @param nome
+	 * @param cnpj
+	 * @param responsavel
+	 * @param email
+	 * @param senha
+	 * @param endereco
+	 * @param telefone
+	 * @param statusLogin
+	 * @param tipoLogin da empresa
 	 */
 	public Empresa(int codigo, String descricao, String nome, String cnpj, String responsavel, String email,
 			String senha, Endereco endereco, Telefone telefone, String statusLogin, String tipoLogin) {
@@ -136,6 +153,10 @@ public class Empresa {
 		return cnpj;
 	}
 
+	/**
+	 * Altera o cnpj da empresa
+	 * @param cnpj da empresa
+	 */
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
@@ -148,6 +169,10 @@ public class Empresa {
 		return responsavel;
 	}
 
+	/**
+	 * Altera o responsavel da empresa
+	 * @param responsavel da empresa
+	 */
 	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
 	}
