@@ -1,5 +1,0 @@
-package br.com.merge.excetion;
-
-public class DadoInvalidoException {
-
-}

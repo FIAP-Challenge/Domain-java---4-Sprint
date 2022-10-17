@@ -15,14 +15,41 @@ import br.com.merge.excetion.DadoInvalidoException;
 import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.model.Candidatura;
 
+
+
+/**
+ * Classe responsável por cadastrar, encontrar, alterar senha e listar uma candidatura
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+
 public class CandidaturaDao {
 
+	
+	/**
+	 * Atributo para conexao
+	 */
 	private Connection conexao;
 
+	
+	/**
+	 * Construto para a candidatura
+	 */
 	public CandidaturaDao(Connection conexao) {
 		this.conexao = conexao;
 	}
 
+	
+	/**
+	 * Metodo para cadastrar uma nova candidatura
+	 * @param Candidatura
+	 * @throws SQLException
+	 * @throws DadoInvalidoException
+	 */
 	public void cadastrar(Candidatura candidatura) throws SQLException, DadoInvalidoException {
 
 		PreparedStatement stmt = conexao.prepareStatement("insert into T_MERGE_CANDIDATURA values "
@@ -71,6 +98,13 @@ public class CandidaturaDao {
 
 	}
 
+	
+	/**
+	 * Metodo para cadastrar um candidato
+	 * @param candidatura
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void atualizar(Candidatura candidatura) throws SQLException, IdNotFoundException {
 		// Criar o PreparedStatement com o comando SQL de update
 		PreparedStatement stmt = conexao.prepareStatement(
@@ -99,6 +133,14 @@ public class CandidaturaDao {
 
 	}
 
+	/**
+	 * Metodo para realizar um select pelo id do candidato
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 * @throws ClassNotFoundException
+	 */
 	public List<Candidatura> select(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_CANDIDATURA where ID_CANDIDATO = ?");
@@ -130,6 +172,15 @@ public class CandidaturaDao {
 		return lista;
 	}
 		
+	/**
+	 * Metodo para selecionar uma candidatura
+	 * @param codigoVaga
+	 * @param codigoCandidato
+	 * @return
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 * @throws ClassNotFoundException
+	 */
 		public Candidatura select(int codigoVaga, int codigoCandidato) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
 			PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_CANDIDATURA where ID_VAGAS = ? AND ID_CANDIDATO = ?");
@@ -192,6 +243,13 @@ public class CandidaturaDao {
 		return lista;
 	}
 
+	
+	/**
+	 * Metodo para remover uma candidatura
+	 * @param id
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void remover(int id) throws SQLException, IdNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("DELETE FROM T_MERGE_CANDIDATURA WHERE ID_CANDIDATURA = ?");

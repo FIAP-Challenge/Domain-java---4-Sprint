@@ -26,30 +26,68 @@ import br.com.merge.factory.ConnetionFactoy;
 import br.com.merge.model.Candidato;
 import br.com.merge.model.Empresa;
 
+/**
+ * Classe responsável por pelo recurso api da empresa
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 @Path("/empresa/")
 public class EmpresaResource {
 
+	/**
+	 * Atributo da conexao
+	 */
 	private Connection conexao;
+
+	/**
+	 * Atributo da empresaBo
+	 */
 	EmpresaBo emp;
+
+	/**
+	 * Atributo do enderecoBO
+	 */
 	EnderecoBo end;
 
+	/**
+	 * Metodo para buscar uma lista de empresas
+	 * 
+	 * @return lista de empresas
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Empresa> listaEmpresas() throws ClassNotFoundException, SQLException, IdNotFoundException {
-		
+
 		try {
 			conexao = ConnetionFactoy.getConnection();
 			emp = new EmpresaBo(conexao);
 			return emp.listar();
-		}catch (IdNotFoundException e) {
-			return (List<Empresa>) Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMessage() + "\"").type(MediaType.APPLICATION_JSON).build();
+		} catch (IdNotFoundException e) {
+			return (List<Empresa>) Response.status(400, e.getMessage())
+					.entity("\"mensagem\":" + "\"" + e.getMessage() + "\"").type(MediaType.APPLICATION_JSON).build();
 
-		}finally {
+		} finally {
 			conexao.close();
 		}
-		
+
 	}
 
+	/**
+	 * Metodo para buscar pelo cnpj
+	 * 
+	 * @param cnpj
+	 * @return Empresa
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@GET
 	@Path("/{cnpj}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -60,6 +98,16 @@ public class EmpresaResource {
 		return emp.listar(cnpj);
 	}
 
+	/**
+	 * Metodo para cadastrar uma empresa
+	 * 
+	 * @param empresa
+	 * @param uriInfo
+	 * @return Reponse
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws DadoInvalidoException
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Empresa empresa, @Context UriInfo uriInfo)
@@ -83,32 +131,50 @@ public class EmpresaResource {
 
 			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMensagem() + "\"")
 					.type(MediaType.APPLICATION_JSON).build();
-		}finally {
+		} finally {
 			conexao.close();
 		}
 	}
 
+	/**
+	 * Metodo para atualizar uma empresa pelo id
+	 * 
+	 * @param empresa
+	 * @param id
+	 * @return Response
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Empresa empresa, @PathParam("id") int id)
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		
+
 		try {
 			emp = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
 			empresa.setCodigo(id);
 			emp.atualizar(empresa);
 
 			return Response.ok().build();
-		}catch (IdNotFoundException e) {
-			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMessage() + "\"").type(MediaType.APPLICATION_JSON).build();
-		}finally {
+		} catch (IdNotFoundException e) {
+			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMessage() + "\"")
+					.type(MediaType.APPLICATION_JSON).build();
+		} finally {
 			conexao.close();
 		}
-		
 
 	}
 
+	/**
+	 * Metodo para deletar
+	 * 
+	 * @param cnpj
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@DELETE
 	@Path("{cnpj}")
 	public void excluir(@PathParam("cnpj") String cnpj)

@@ -30,16 +30,21 @@ import br.com.merge.model.Vaga;
 
 @Path("/disc/")
 public class DiscResource {
-	
+
+	/**
+	 * Atributo da conexao
+	 */
 	private Connection conexao;
+
+	/**
+	 * Atributo da discBo
+	 */
 	DiscBo discBo;
-	
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Disc listar(@PathParam("id") int id)
-			throws ClassNotFoundException, SQLException, IdNotFoundException {
+	public Disc listar(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
 		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
 
 		return discBo.listar(id);
@@ -49,36 +54,35 @@ public class DiscResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Disc disc, @Context UriInfo uriInfo)
 			throws SQLException, ClassNotFoundException, DadoInvalidoException {
-		
-		
-			discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
-			// GERANDO O CÓDIGO DO PRODUTO
-			discBo.cadastrar(disc);
 
-			// CONSTRUIR A URI DE RETORNO
-			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
+		// GERANDO O CÓDIGO DO PRODUTO
+		discBo.cadastrar(disc);
 
-			// PARSEANDO E CONCATENANDO O CÓDIGO DO PRODUTO COM A URL
-			builder.path(Integer.toString(disc.getCodigo()));
-			// RETORNANDO A URL E TESTANDO A SOLICITAÇÃO E REALIZANDO O POST
+		// CONSTRUIR A URI DE RETORNO
+		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 
-			return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"" ).type(MediaType.APPLICATION_JSON).build();
-			
-		
+		// PARSEANDO E CONCATENANDO O CÓDIGO DO PRODUTO COM A URL
+		builder.path(Integer.toString(disc.getCodigo()));
+		// RETORNANDO A URL E TESTANDO A SOLICITAÇÃO E REALIZANDO O POST
+
+		return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"")
+				.type(MediaType.APPLICATION_JSON).build();
 
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(Disc disc, @PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+	public Response atualizar(Disc disc, @PathParam("id") int id)
+			throws ClassNotFoundException, SQLException, IdNotFoundException {
 		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
-		
+
 		disc.setCodigo(id);
 		discBo.atualizar(disc, id);
-		
+
 		return Response.ok().build();
-	
+
 	}
 
 	@DELETE

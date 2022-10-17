@@ -1,0 +1,58 @@
+package br.com.merge.bo;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import br.com.merge.dao.EnderecoEmpresaDao;
+import br.com.merge.excetion.IdNotFoundException;
+import br.com.merge.model.Endereco;
+
+
+
+/**
+ * Classe para realizar regra de negocio da empresa
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+
+public class EnderecoEmpresaBo {
+	
+	/**
+	 * Atributo para chamar o EnderecoEmpresaDao
+	 */
+	private EnderecoEmpresaDao endereco;
+	
+
+	
+	public EnderecoEmpresaBo(Connection conexao) {
+		endereco = new EnderecoEmpresaDao(conexao);
+	}
+
+	
+	public void cadastrar(Endereco end) throws SQLException, ClassNotFoundException {
+		endereco.cadastrar(end);
+		
+		
+	}
+	
+	public Endereco listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		return endereco.select(id);
+	}
+	
+	
+	public void atualizar(Endereco end, int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+		
+		endereco.atualizar(end, id);
+	}
+
+	public void remover(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+		endereco.remover(id);
+
+	}
+	
+	
+}

@@ -1,9 +1,0 @@
-package br.com.merge.bo;
-
-import br.com.merge.dao.EnderecoDao;
-
-public class EnderecoBo {
-	
-	private EnderecoDao endereco;
-
-}

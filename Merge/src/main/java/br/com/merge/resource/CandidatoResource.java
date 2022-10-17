@@ -25,6 +25,10 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.factory.ConnetionFactoy;
 import br.com.merge.model.Candidato;
 
+
+
+
+
 @Path("/candidato/")
 public class CandidatoResource {
 	

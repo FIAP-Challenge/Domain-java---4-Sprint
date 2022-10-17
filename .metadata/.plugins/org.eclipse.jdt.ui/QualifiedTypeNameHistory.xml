@@ -34,15 +34,12 @@
     <fullyQualifiedTypeName name="br.com.merge.bo.FormacaoBo"/>
     <fullyQualifiedTypeName name="br.com.merge.dao.CursoDao"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="br.com.merge.bo.CurriculoBo"/>
     <fullyQualifiedTypeName name="br.com.merge.dao.CurriculoDao"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Curso"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Formacao"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Idiomas"/>
-    <fullyQualifiedTypeName name="br.com.merge.model.Curriculo"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Requisito"/>
-    <fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
     <fullyQualifiedTypeName name="br.com.merge.model.LoginUser"/>
     <fullyQualifiedTypeName name="br.com.merge.bo.EmpresaBo"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Empresa"/>
@@ -58,6 +55,9 @@
     <fullyQualifiedTypeName name="java.util.Locale"/>
     <fullyQualifiedTypeName name="java.text.DateFormat"/>
     <fullyQualifiedTypeName name="br.com.merge.model.Candidatura"/>
-    <fullyQualifiedTypeName name="br.com.merge.excetion.IdNotFoundException"/>
     <fullyQualifiedTypeName name="javax.ws.rs.core.Response"/>
+    <fullyQualifiedTypeName name="br.com.merge.model.Curriculo"/>
+    <fullyQualifiedTypeName name="br.com.merge.bo.CurriculoBo"/>
+    <fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+    <fullyQualifiedTypeName name="br.com.merge.excetion.IdNotFoundException"/>
 </qualifiedTypeNameHistroy>

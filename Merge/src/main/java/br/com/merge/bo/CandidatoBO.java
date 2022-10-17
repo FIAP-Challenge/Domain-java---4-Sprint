@@ -9,15 +9,40 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.model.Candidato;
 import br.com.merge.model.Disc;
 
+/**
+ * Classe para realizar regra de negocio do candidato
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+
 public class CandidatoBO {
 
+	/**
+	 * Instancia da ClasseDao do candidato
+	 */
 	private CandidatoDao candidato;
+	/**
+	 * Atributos de instancias das classes business do EnderecoBo, TelefoneBo,
+	 * CurriculoBo, DiscBo
+	 */
 	private EnderecoBo enderecobo;
 	private TelefoneBo telefonebo;
 	private CurriculoBo curriculobo;
 	private DiscBo discBo;
+
+	/**
+	 * Instacia da conexao
+	 */
 	private Connection conexao;
 
+	/**
+	 * Construtor da Classe para conseguir a conexao dos atributos e da propria
+	 * classe
+	 */
 	public CandidatoBO(Connection conexao) {
 		this.conexao = conexao;
 		candidato = new CandidatoDao(conexao);
@@ -27,37 +52,54 @@ public class CandidatoBO {
 		discBo = new DiscBo(conexao);
 	}
 
+	/**
+	 * Metodo de listagem de um ou vários candidato
+	 */
 	public List<Candidato> listar() throws ClassNotFoundException, SQLException, IdNotFoundException {
 
 		return candidato.select();
 	}
-	
-	
-	
-	public Candidato listar(String email, String senha) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
-		
-		
+	/**
+	 * Metodo de listagem por email e a senha do candidato; deve-se achar apenas um
+	 * candidato;
+	 * 
+	 * @param email
+	 * @param senha
+	 */
+	public Candidato listar(String email, String senha)
+			throws SQLException, IdNotFoundException, ClassNotFoundException {
+
 		try {
-		 return	candidato.select(email, senha);
-		}catch(Exception e) {
-			
+			return candidato.select(email, senha);
+		} catch (Exception e) {
+
 			throw new IdNotFoundException(e.getMessage());
 		}
-		
+
 	}
-	
+
+	/**
+	 * Metodo de listar por CPF
+	 * 
+	 * @param cpf
+	 */
 
 	public Candidato listar(String cpf) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
 		try {
-			 return	candidato.select(cpf);
-			}catch(Exception e) {
-				
-				throw new IdNotFoundException(e.getMessage());
-			}
+			return candidato.select(cpf);
+		} catch (Exception e) {
+
+			throw new IdNotFoundException(e.getMessage());
+		}
 	}
 
+	/**
+	 * Metodo de cadastrar o candidato;
+	 * 
+	 * @param Candidato
+	 */
 	public void cadastrar(Candidato cand) throws SQLException, ClassNotFoundException, DadoInvalidoException {
 
 		conexao.setAutoCommit(false);
@@ -69,7 +111,7 @@ public class CandidatoBO {
 			curriculobo.cadastrar(cand.getCurriculo());
 
 			System.out.println("Qual é esse candidato" + cand.toString());
-			
+
 			if (cand.getDisc() == null) {
 				Disc disc = new Disc();
 				discBo.cadastrar(disc);
@@ -77,9 +119,9 @@ public class CandidatoBO {
 
 				discBo.cadastrar(cand.getDisc());
 			}
-		
+
 		} catch (SQLException e) {
-			
+
 			conexao.commit();
 			throw new DadoInvalidoException(e.getMessage());
 		}
@@ -94,6 +136,11 @@ public class CandidatoBO {
 
 	}
 
+	/**
+	 * Metodo para atualizar o candidato;
+	 * 
+	 * @param Candidato;
+	 */
 	public void atualizar(Candidato cand) throws ClassNotFoundException, SQLException, IdNotFoundException {
 		conexao.setAutoCommit(false);
 
@@ -116,6 +163,11 @@ public class CandidatoBO {
 		}
 	}
 
+	/**
+	 * Metodo para apagar um candidato
+	 * 
+	 * @param CPF
+	 */
 	public void remover(String cpf) throws SQLException, IdNotFoundException, ClassNotFoundException {
 		candidato.remover(cpf);
 

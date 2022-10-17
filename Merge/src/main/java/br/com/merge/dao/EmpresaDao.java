@@ -14,20 +14,43 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.model.Empresa;
 import br.com.merge.model.Endereco;
 import br.com.merge.model.Telefone;
+
+/**
+ * Classe responsável por cadastrar, encontrar, listar
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 public class EmpresaDao {
 
+	/**
+	 * Atributo da conexao
+	 */
 	private Connection conexao;
 
-
+	/**
+	 * Construtor da classe
+	 * 
+	 * @param conexao
+	 */
 	public EmpresaDao(Connection conexao) {
 		this.conexao = conexao;
 	}
 
-	public void cadastrar(Empresa empresa) throws SQLException, DadoInvalidoException  {
+	/**
+	 * Metodo para cadastrar
+	 * 
+	 * @param empresa
+	 * @throws SQLException
+	 * @throws DadoInvalidoException
+	 */
+	public void cadastrar(Empresa empresa) throws SQLException, DadoInvalidoException {
 
 		PreparedStatement stmt = conexao.prepareStatement(
-				"insert into T_MERGE_EMPRESA values "
-						+ "(SQ_T_MERGE_EMPRESA.nextval, ?, ?, ?, ?, ?, ?, ?, ? )",
+				"insert into T_MERGE_EMPRESA values " + "(SQ_T_MERGE_EMPRESA.nextval, ?, ?, ?, ?, ?, ?, ?, ? )",
 				new String[] { "ID_EMPRESA" });
 
 		stmt.setString(1, empresa.getDescricao());
@@ -41,8 +64,8 @@ public class EmpresaDao {
 
 		try {
 			stmt.executeUpdate();
-		}catch(SQLException e){
-			throw new DadoInvalidoException(e.getMessage());	
+		} catch (SQLException e) {
+			throw new DadoInvalidoException(e.getMessage());
 		}
 
 		ResultSet result = stmt.getGeneratedKeys();
@@ -53,10 +76,17 @@ public class EmpresaDao {
 
 	}
 
+	/**
+	 * Metodo para atualizar
+	 * 
+	 * @param empresa
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void atualizar(Empresa empresa) throws SQLException, IdNotFoundException {
 		// Criar o PreparedStatement com o comando SQL de update
-		PreparedStatement stmt = conexao.prepareStatement("UPDATE T_MERGE_EMPRESA SET DS_EMPRESA = ?, NM_EMPRESA = ?, NR_CNPJ = ?, NM_RESPONSAVEL = ? , DS_EMAIL = ?, PS_SENHA = ?,  ST_LOGIN = ?, TP_LOGIN = ?  where ID_EMPRESA = ?");
-
+		PreparedStatement stmt = conexao.prepareStatement(
+				"UPDATE T_MERGE_EMPRESA SET DS_EMPRESA = ?, NM_EMPRESA = ?, NR_CNPJ = ?, NM_RESPONSAVEL = ? , DS_EMAIL = ?, PS_SENHA = ?,  ST_LOGIN = ?, TP_LOGIN = ?  where ID_EMPRESA = ?");
 
 		stmt.setString(1, empresa.getDescricao());
 		stmt.setString(2, empresa.getNome());
@@ -68,21 +98,19 @@ public class EmpresaDao {
 		stmt.setString(8, "E");
 		stmt.setInt(9, empresa.getCodigo());
 		System.out.println(empresa.toString());
-		
-		
+
 		int qtd = stmt.executeUpdate();
 
-		
 		if (qtd == 0)
 			throw new IdNotFoundException("Não localizado para alterar");
 
 	}
 
 	/**
-	 * Método que encontra na lista o candidato pelo cpf
+	 * Método que encontra na lista o candidato pelo cnpj
 	 * 
-	 * @param cpf dop candidato
-	 * @return o candidato
+	 * @param cnpj empresa
+	 * @return empresa
 	 * @throws SQLException
 	 * @throws IdNotFoundException
 	 * @throws ClassNotFoundException
@@ -118,29 +146,39 @@ public class EmpresaDao {
 		String nomeCidade = endereco.listar(codigo).getCidade();
 		String nomeEstado = endereco.listar(codigo).getEstado();
 		String SiglaEstado = endereco.listar(codigo).getSiglaEstado();
-		
+
 		TelefoneEmpresaBo telefone = new TelefoneEmpresaBo(conexao);
 		int codigoTelefone = telefone.listar(codigo).getCodigo();
 		String ddd = telefone.listar(codigo).getDdd();
 		String numeroTelelefone = telefone.listar(codigo).getNumero();
 		String tipoTelefone = telefone.listar(codigo).getTipo();
-		
-		
-		Telefone telefoneCandidato = new Telefone(codigoTelefone, ddd, numeroTelelefone, tipoTelefone);
-		Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento, nomeCidade, nomeEstado, SiglaEstado);
-		
-		
-		Empresa empresa = new Empresa(codigo,descricao, nome, numeroCnpj, nomeResponsavel, email, senha, enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);		
 
+		Telefone telefoneCandidato = new Telefone(codigoTelefone, ddd, numeroTelelefone, tipoTelefone);
+		Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento,
+				nomeCidade, nomeEstado, SiglaEstado);
+
+		Empresa empresa = new Empresa(codigo, descricao, nome, numeroCnpj, nomeResponsavel, email, senha,
+				enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);
 
 		return empresa;
 	}
-	
-	
-	
-	public Empresa select(String emailLogin, String senhaLogin) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
-		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_EMPRESA where DS_EMAIL = ? and PS_SENHA = ?");
+	/**
+	 * Metodo para selecionar uma empresa
+	 * 
+	 * @param emailLogin
+	 * @param senhaLogin
+	 * @return empresa
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 * @throws ClassNotFoundException
+	 */
+
+	public Empresa select(String emailLogin, String senhaLogin)
+			throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		PreparedStatement stmt = conexao
+				.prepareStatement("select * from T_MERGE_EMPRESA where DS_EMAIL = ? and PS_SENHA = ?");
 
 		stmt.setString(1, emailLogin);
 		stmt.setString(2, senhaLogin);
@@ -170,31 +208,30 @@ public class EmpresaDao {
 		String nomeCidade = endereco.listar(codigo).getCidade();
 		String nomeEstado = endereco.listar(codigo).getEstado();
 		String SiglaEstado = endereco.listar(codigo).getSiglaEstado();
-		
+
 		TelefoneEmpresaBo telefone = new TelefoneEmpresaBo(conexao);
 		int codigoTelefone = telefone.listar(codigo).getCodigo();
 		String ddd = telefone.listar(codigo).getDdd();
 		String numeroTelelefone = telefone.listar(codigo).getNumero();
 		String tipoTelefone = telefone.listar(codigo).getTipo();
-		
-		
+
 		Telefone telefoneCandidato = new Telefone(codigoTelefone, ddd, numeroTelelefone, tipoTelefone);
-		Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento, nomeCidade, nomeEstado, SiglaEstado);
-		
-		
-		Empresa empresa = new Empresa(codigo,descricao, nome, numeroCnpj, nomeResponsavel, email, senha, enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);		
-		
+		Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento,
+				nomeCidade, nomeEstado, SiglaEstado);
+
+		Empresa empresa = new Empresa(codigo, descricao, nome, numeroCnpj, nomeResponsavel, email, senha,
+				enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);
 
 		return empresa;
 	}
 
 	/**
-	 * Lista os candidatos
+	 * Metodo para listar empresas
 	 * 
-	 * @return a lista de candidatos
+	 * @return lista empresas
 	 * @throws SQLException
-	 * @throws IdNotFoundException
 	 * @throws ClassNotFoundException
+	 * @throws IdNotFoundException
 	 */
 	public List<Empresa> select() throws SQLException, ClassNotFoundException, IdNotFoundException {
 		PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM T_MERGE_EMPRESA");
@@ -202,7 +239,7 @@ public class EmpresaDao {
 		List<Empresa> lista = new ArrayList<Empresa>();
 
 		while (result.next()) {
-			
+
 			int codigo = result.getInt("ID_EMPRESA");
 			String descricao = result.getString("DS_EMPRESA");
 			String nome = result.getString("NM_EMPRESA");
@@ -212,8 +249,6 @@ public class EmpresaDao {
 			String senha = result.getString("PS_SENHA");
 			String statusLogin = result.getString("ST_LOGIN");
 			String tipoLogin = result.getString("TP_LOGIN");
-			
-			
 
 			EnderecoEmpresaBo endereco = new EnderecoEmpresaBo(conexao);
 			int codigoEndereco = endereco.listar(codigo).getCodigo();
@@ -225,21 +260,20 @@ public class EmpresaDao {
 			String nomeCidade = endereco.listar(codigo).getCidade();
 			String nomeEstado = endereco.listar(codigo).getEstado();
 			String SiglaEstado = endereco.listar(codigo).getSiglaEstado();
-			
+
 			TelefoneEmpresaBo telefone = new TelefoneEmpresaBo(conexao);
 			int codigoTelefone = telefone.listar(codigo).getCodigo();
 			String ddd = telefone.listar(codigo).getDdd();
 			String numeroTelelefone = telefone.listar(codigo).getNumero();
 			String tipoTelefone = telefone.listar(codigo).getTipo();
-			
-			
-			
+
 			Telefone telefoneCandidato = new Telefone(codigoTelefone, ddd, numeroTelelefone, tipoTelefone);
-			Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento, nomeCidade, nomeEstado, SiglaEstado);
-			
-			
-			Empresa empresa = new Empresa(codigo,descricao, nome, numeroCnpj, nomeResponsavel, email, senha, enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);
-	
+			Endereco enderecoCandidato = new Endereco(codigoEndereco, cep, bairro, numero, nomeLogradouro, complemento,
+					nomeCidade, nomeEstado, SiglaEstado);
+
+			Empresa empresa = new Empresa(codigo, descricao, nome, numeroCnpj, nomeResponsavel, email, senha,
+					enderecoCandidato, telefoneCandidato, statusLogin, tipoLogin);
+
 			lista.add(empresa);
 
 		}
@@ -247,7 +281,13 @@ public class EmpresaDao {
 		return lista;
 	}
 
-	
+	/**
+	 * Metodo para remover pelo cnpj da empresa
+	 * 
+	 * @param cnpj
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void remover(String cnpj) throws SQLException, IdNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("DELETE FROM T_MERGE_EMPRESA WHERE NR_CNPJ= ?");

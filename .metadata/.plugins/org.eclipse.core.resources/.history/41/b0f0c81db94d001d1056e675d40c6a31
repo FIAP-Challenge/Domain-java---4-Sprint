@@ -1,0 +1,37 @@
+package br.com.merge.excetion;
+
+/**
+ * Classe para exception de dado invalidado
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+public class DadoInvalidoException extends Exception {
+
+	/**
+	 * Atributo da mensagem
+	 */
+	private String mensagem;
+	
+	public DadoInvalidoException() {
+		super("Dado invalido");
+	}
+	
+	public DadoInvalidoException(String msg) {
+		this.mensagem = msg;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+	
+	
+	
+}

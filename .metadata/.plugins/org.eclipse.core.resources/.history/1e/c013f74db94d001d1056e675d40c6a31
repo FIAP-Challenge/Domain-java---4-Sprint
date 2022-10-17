@@ -1,0 +1,20 @@
+package br.com.merge.excetion;
+
+/**
+ * Classe para realizar regra de negocio do curriculo
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+public class IdNotFoundException extends Exception  {
+	
+public IdNotFoundException() {}
+	
+	public IdNotFoundException(String msg) {
+		super(msg);
+	}
+
+}

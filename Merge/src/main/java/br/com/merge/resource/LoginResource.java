@@ -28,15 +28,50 @@ import br.com.merge.model.Candidato;
 import br.com.merge.model.Empresa;
 import br.com.merge.model.LoginUser;
 
+/**
+ * Classe responsável por pelo recurso api do login do candidato e empresa
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+
 @Path("/login/")
 public class LoginResource {
-	
-	private Connection conexao;
-	CandidatoBO cand;
-	EmpresaBo empr;
-	EnderecoBo end;
-	
 
+	/**
+	 * Atributo da conexao
+	 */
+	private Connection conexao;
+
+	/**
+	 * Atributo do candidatoBO
+	 */
+	CandidatoBO cand;
+
+	/**
+	 * Atributo da empresaBo
+	 */
+	EmpresaBo empr;
+
+	/**
+	 * Atributo da enderecoBo
+	 */
+	EnderecoBo end;
+
+	/**
+	 * Metodo para cadastrar
+	 * 
+	 * @param login
+	 * @param uriInfo
+	 * @return Response
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws DadoInvalidoException
+	 * @throws IdNotFoundException
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(LoginUser login, @Context UriInfo uriInfo)
@@ -44,31 +79,29 @@ public class LoginResource {
 
 		try {
 
-				cand = new 	CandidatoBO(conexao = ConnetionFactoy.getConnection());
-				Candidato cadndit = cand.listar(login.getEmail(), login.getSenha()); 
-				System.out.println(cadndit);
-				
-				return Response.ok(200).entity(cadndit).type(MediaType.APPLICATION_JSON).build();
-		}catch(IdNotFoundException e) {
-			
+			cand = new CandidatoBO(conexao = ConnetionFactoy.getConnection());
+			Candidato cadndit = cand.listar(login.getEmail(), login.getSenha());
+			System.out.println(cadndit);
+
+			return Response.ok(200).entity(cadndit).type(MediaType.APPLICATION_JSON).build();
+		} catch (IdNotFoundException e) {
+
 			try {
-				
-				empr = new 	EmpresaBo(conexao = ConnetionFactoy.getConnection());
-				Empresa empres = empr.listar(login.getEmail(), login.getSenha()); 
+
+				empr = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
+				Empresa empres = empr.listar(login.getEmail(), login.getSenha());
 				System.out.println(empres);
 				return Response.ok(200).entity(empres).type(MediaType.APPLICATION_JSON).build();
-			}catch(IdNotFoundException err) {
-				return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMessage() + "\"").type(MediaType.APPLICATION_JSON).build();
+			} catch (IdNotFoundException err) {
+				return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMessage() + "\"")
+						.type(MediaType.APPLICATION_JSON).build();
 			}
-			
-		}finally {
+
+		} finally {
 			conexao.close();
 			System.out.println("Fechei a conexao");
 		}
-	
 
 	}
-
-	
 
 }

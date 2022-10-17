@@ -23,66 +23,127 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.factory.ConnetionFactoy;
 import br.com.merge.model.Vaga;
 
+/**
+ * Classe responsável por pelo recurso api da vaga
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 @Path("/vaga/")
 public class VagaResource {
-	
+
+	/**
+	 * Atributo da conexao
+	 */
 	private Connection conexao;
+
+	/**
+	 * Atributo da business object da classe
+	 */
 	VagaBo vagabo;
-	
+
+	/**
+	 * Metodo para listar
+	 * 
+	 * @return lista de vagas
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Vaga> listaCandidatos() throws ClassNotFoundException, SQLException, IdNotFoundException {
 		conexao = ConnetionFactoy.getConnection();
-		vagabo = new 	VagaBo(conexao);
-				return vagabo.listar();
+		vagabo = new VagaBo(conexao);
+		return vagabo.listar();
 	}
 
+	/**
+	 * Metodo para buscar uma vaga pelo id
+	 * 
+	 * @param id
+	 * @return vaga
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Vaga listarVagas(@PathParam("id") int id)
-			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		vagabo = new 	VagaBo(conexao = ConnetionFactoy.getConnection());
+	public Vaga listarVagas(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+		vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
 
 		return vagabo.listar(id);
 	}
 
+	/**
+	 * Metodo para cadastrar
+	 * 
+	 * @param vaga
+	 * @param uriInfo
+	 * @return Response
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws DadoInvalidoException
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Vaga vaga, @Context UriInfo uriInfo)
 			throws SQLException, ClassNotFoundException, DadoInvalidoException {
-		
+
 		try {
-			vagabo = new 	VagaBo(conexao = ConnetionFactoy.getConnection());
+			vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
 			vagabo.cadastrar(vaga);
 
 			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 
 			builder.path(Integer.toString(vaga.getCodigo()));
 
-			return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"" ).type(MediaType.APPLICATION_JSON).build(); 
-		}catch(DadoInvalidoException e) {
+			return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"")
+					.type(MediaType.APPLICATION_JSON).build();
+		} catch (DadoInvalidoException e) {
 
-			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMensagem() + "\"").type(MediaType.APPLICATION_JSON).build();
+			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMensagem() + "\"")
+					.type(MediaType.APPLICATION_JSON).build();
 		}
-		
 
 	}
 
+	/**
+	 * Metodo para atualizar pelo id da vaga
+	 * 
+	 * @param vaga
+	 * @param id
+	 * @return Response
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(Vaga vaga, @PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+	public Response atualizar(Vaga vaga, @PathParam("id") int id)
+			throws ClassNotFoundException, SQLException, IdNotFoundException {
 		vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
-		
+
 		vaga.setCodigo(id);
 		vagabo.atualizar(vaga);
-		
 
 		return Response.ok().build();
-	
+
 	}
 
+	/**
+	 * Metodo para deletar pelo id da vaga
+	 * 
+	 * @param id
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	@DELETE
 	@Path("{id}")
 	public void excluir(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {

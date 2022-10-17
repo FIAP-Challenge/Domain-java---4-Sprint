@@ -11,6 +11,15 @@ import br.com.merge.excetion.IdNotFoundException;
 import br.com.merge.model.Requisito;
 import br.com.merge.model.Vaga;
 
+/**
+ * Classe responsável por cadastrar, encontrar e listar
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 public class VagaDao {
 
 	private Connection conexao;
@@ -24,6 +33,12 @@ public class VagaDao {
 		this.conexao = conexao;
 	}
 
+	/**
+	 * Metodo para cadastrar
+	 * 
+	 * @param vaga
+	 * @throws SQLException
+	 */
 	public void cadastrar(Vaga vaga) throws SQLException {
 
 		String requisitos = null;
@@ -39,7 +54,7 @@ public class VagaDao {
 			requisitos = requisitos.substring(0, requisitos.length() - 1);
 			requisitos = requisitos.replace("null", "");
 		}
-		
+
 		stmt.setInt(1, vaga.getCodigoEmpresa());
 		stmt.setString(2, vaga.getNome());
 		stmt.setString(3, vaga.getCargo());
@@ -55,13 +70,17 @@ public class VagaDao {
 		stmt.executeUpdate();
 	}
 
+	/**
+	 * Metodo para atualizar uma vaga
+	 * 
+	 * @param vaga
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void atualizar(Vaga vaga) throws SQLException, IdNotFoundException {
 		String requisitos = null;
-		// Criar o PreparedStatement com o comando SQL de update
 		PreparedStatement stmt = conexao.prepareStatement("update T_MERGE_VAGAS set "
 				+ "NM_VAGA = ?, NM_CARGO = ?, DS_CARGO = ?, DS_HISTORIA_EMPRESA = ?, DS_VAGA = ?, VL_REMUNERACAO = ?, DS_BENEFICIOS = ? , HR_CARGA = ?, DS_MODALIDADE_TRABALHO = ? DS_REQUISITOS = ? where ID_VAGAS = ?");
-
-		// Setar os valores na query
 
 		if (vaga.getRequisitos() != null) {
 			for (int i = 0; i < vaga.getRequisitos().size(); i++) {
@@ -83,14 +102,20 @@ public class VagaDao {
 		stmt.setString(9, vaga.getModoTrabalho());
 		stmt.setString(10, requisitos);
 		stmt.setInt(11, vaga.getCodigo());
-		// Executar a query e recuperar a qtd de linhas afetadas no banco
 		int qtd = stmt.executeUpdate();
 
-		// Verifica se algum registro foi modificado no banco
 		if (qtd == 0)
 			throw new IdNotFoundException("ID NÃO ENCONTRADO PARA ATUALIZAR");
 	}
 
+	/**
+	 * Metodo para selecionar pelo id da vaga
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public Vaga select(int id) throws SQLException, IdNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_VAGAS where ID_vagas = ?");
@@ -126,11 +151,17 @@ public class VagaDao {
 			}
 		}
 
-		Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga, remuneracao,
-				beneficios, cargaHoraria, modoTrabalho, listaRequisitos );
+		Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
+				remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos);
 		return vaga;
 	}
 
+	/**
+	 * Metodo para listar vagas
+	 * 
+	 * @return lista de vagas
+	 * @throws SQLException
+	 */
 	public List<Vaga> select() throws SQLException {
 		PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM T_MERGE_VAGAS ORDER BY ID_VAGAS ASC");
 		ResultSet result = stmt.executeQuery();
@@ -152,7 +183,7 @@ public class VagaDao {
 			String requisitos = result.getString("DS_REQUISITOS");
 			Requisito requisitoClasse;
 			List<Requisito> listaRequisitos = new ArrayList<Requisito>();
-		
+
 			if (requisitos != null) {
 				String[] listaR = requisitos.split(",");
 
@@ -161,10 +192,9 @@ public class VagaDao {
 
 				}
 			}
-			
-			
-			Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga, remuneracao,
-					beneficios, cargaHoraria, modoTrabalho, listaRequisitos );
+
+			Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
+					remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos);
 
 			lista.add(vaga);
 
@@ -173,6 +203,13 @@ public class VagaDao {
 		return lista;
 	}
 
+	/**
+	 * Metodo para remover
+	 * 
+	 * @param id
+	 * @throws SQLException
+	 * @throws IdNotFoundException
+	 */
 	public void remover(int id) throws SQLException, IdNotFoundException {
 
 		PreparedStatement stmt = conexao.prepareStatement("DELETE FROM T_MERGE_VAGAS WHERE ID_VAGAS = ?");
