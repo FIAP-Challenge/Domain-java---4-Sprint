@@ -79,7 +79,7 @@ public class LoginResource {
 
 		try {
 
-			cand = new CandidatoBO(conexao = ConnetionFactoy.getConnection());
+			cand = new CandidatoBO(conexao = ConnetionFactoy.abrirConexao());
 			Candidato cadndit = cand.listar(login.getEmail(), login.getSenha());
 			System.out.println(cadndit);
 
@@ -88,7 +88,7 @@ public class LoginResource {
 
 			try {
 
-				empr = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
+				empr = new EmpresaBo(conexao = ConnetionFactoy.abrirConexao());
 				Empresa empres = empr.listar(login.getEmail(), login.getSenha());
 				System.out.println(empres);
 				return Response.ok(200).entity(empres).type(MediaType.APPLICATION_JSON).build();
@@ -99,7 +99,6 @@ public class LoginResource {
 
 		} finally {
 			conexao.close();
-			System.out.println("Fechei a conexao");
 		}
 
 	}

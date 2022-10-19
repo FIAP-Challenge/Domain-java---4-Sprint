@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *@author Dennys Nascimenro 
  *@author Luan Reis
  *@author Gustavo Fonseca
- *@author Rodrigo Machado
  *
  */
 
@@ -23,6 +22,9 @@ public class Candidato {
 	 */
     private String nome, cpf, sexo, email, senhaLogin;
     
+    /**
+     * Armazena o estado civil;
+     */
     private String estadoCivil;
     
     /**
@@ -31,46 +33,56 @@ public class Candidato {
     private String dtNascimento;
     
     /**
-     * Armazena o currículo
-     */
-//    private Curriculo curriculo;
-    
-    /**
-     * Armazena o endereco
-     */
-    
-    private Telefone telefone;
-    
-    
-    private Endereco endereco;
-    
-    
-    private Curriculo curriculo;
-    /**
      * Armazena o telefone
      */
-//    private Telefone telefone;
+    private Telefone telefone;
     
+    /**
+     * Armazena endereco
+     */
+    private Endereco endereco;
     
+    /**
+     * Armazena o curriculo
+     */
+    private Curriculo curriculo;    
+    
+    /**
+     * Armazena o status do login
+     */
     private String statusLogin;
     
-    
+    /**
+     * Armazena o tipo de login
+     */
     private String tipoLogin;
     
+    /**
+     * Armazena o resultato do DISC
+     */
     private Disc disc;
     
-    
-    
-
     /**
-     * Construtor padrão
+     * Construtor padrão sem atributos
      */
     public Candidato(){
     }
 
-    
-
-
+    /**
+     * Construtor com atributos
+     * @param codigo
+     * @param nome
+     * @param cpf
+     * @param sexo
+     * @param email
+     * @param senhaLogin
+     * @param estadoCivil
+     * @param dtNascimento
+     * @param telefone
+     * @param endereco
+     * @param statusLogin
+     * @param tipoLogin
+     */
 	public Candidato(
 			int codigo, String nome, String cpf, String sexo, String email, String senhaLogin,
 			String estadoCivil, String dtNascimento, Telefone telefone, Endereco endereco,
@@ -92,11 +104,23 @@ public class Candidato {
 	
 	}
 
-
+	/**
+	 * Construtor com atributos
+	 * @param codigo
+	 * @param nome
+	 * @param cpf
+	 * @param dtNascimento
+	 * @param estadoCivil
+	 * @param sexo
+	 * @param email
+	 * @param endereco
+	 * @param senhaLogin
+	 * @param statusLogin
+	 * @param tipoLogin
+	 */
 	public Candidato(
 			int codigo, String nome, String cpf, String dtNascimento, String estadoCivil, String sexo,
 			String email, Endereco endereco, String senhaLogin, String statusLogin, String tipoLogin) {
-		
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -111,12 +135,22 @@ public class Candidato {
 
 	}
 	
-
-
+	/**
+	 * Construtor com atributos
+	 * @param codigo
+	 * @param nome
+	 * @param cpf
+	 * @param dtNascimento
+	 * @param estadoCivil
+	 * @param sexo
+	 * @param email
+	 * @param senhaLogin
+	 * @param statusLogin
+	 * @param tipoLogin
+	 */
 	public Candidato(
 			int codigo, String nome, String cpf, String dtNascimento, String estadoCivil, 
 			String sexo, String email, String senhaLogin, String statusLogin, String tipoLogin) {
-		
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -131,10 +165,22 @@ public class Candidato {
 
 	}
 	
-	
-	
-	
-
+	/**
+	 * Construtor com atributos
+	 * @param codigo
+	 * @param nome
+	 * @param cpf
+	 * @param sexo
+	 * @param email
+	 * @param senhaLogin
+	 * @param estadoCivil
+	 * @param dtNascimento
+	 * @param telefone
+	 * @param endereco
+	 * @param statusLogin
+	 * @param tipoLogin
+	 * @param disc
+	 */
 	public Candidato(
 			int codigo, String nome, String cpf, String sexo, String email, String senhaLogin,
 			String estadoCivil, String dtNascimento, Telefone telefone, Endereco endereco,
@@ -155,13 +201,25 @@ public class Candidato {
 		this.disc = disc;
 		
 	
-	}
+	}	
 
-
-	
-	
-
-
+	/**
+	 * Construtor com atributos
+	 * @param codigo
+	 * @param nome
+	 * @param cpf
+	 * @param sexo 
+	 * @param email
+	 * @param senhaLogin
+	 * @param estadoCivil
+	 * @param dtNascimento
+	 * @param telefone
+	 * @param endereco
+	 * @param curriculo
+	 * @param statusLogin
+	 * @param tipoLogin
+	 * @param disc
+	 */
 	public Candidato(int codigo, String nome, String cpf, String sexo, String email, String senhaLogin,
 			String estadoCivil, String dtNascimento, Telefone telefone, Endereco endereco, Curriculo curriculo,
 			String statusLogin, String tipoLogin, Disc disc) {
@@ -182,13 +240,18 @@ public class Candidato {
 		this.disc = disc;
 	}
 
-
-
-
+	/**
+	 * get de codigo
+	 * @return codigo
+	 */
 	public int getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * set de codigo
+	 * @param codigo
+	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
@@ -349,42 +412,62 @@ public class Candidato {
 	 * Altera o telefone do candidato
 	 * @param telefone do candidato
 	 */
-	
 	public void setTelefone(Telefone telefone) {
 		this.telefone = telefone;
 	}
 
+	/**
+	 * Retorna o status do login
+	 * @return status do login
+	 */
 	public String getStatusLogin() {
 		return statusLogin;
 	}
 
+	/**
+	 * Altera o status do login
+	 * @param status do login
+	 */
 	public void setStatusLogin(String statusLogin) {
 		this.statusLogin = statusLogin;
 	}
 
+	/**
+	 * Retorna o tipo de login
+	 * @return tipo de login
+	 */
 	public String getTipoLogin() {
 		return tipoLogin;
 	}
 
+	/**
+	 * Altera o tipo de login
+	 * @param tipo de login
+	 */
 	public void setTipoLogin(String tipoLogin) {
 		this.tipoLogin = tipoLogin;
 	}
 
-
+	/**
+	 * Retorna o Disc
+	 * @return Disc
+	 */
 	public Disc getDisc() {
 		return disc;
 	}
 
-
+	/**
+	 * Altera o disc
+	 * @param disc
+	 */
 	public void setDisc(Disc disc) {
 		this.disc = disc;
 	}
 
-
-
-
-	
-
+	/**
+	 * retorna o toString do candidato
+	 * @return toString do candidato
+	 */
 	@Override
 	public String toString() {
 		return "Candidato [codigo=" + codigo + ", nome=" + nome + ", cpf=" + cpf + ", sexo=" + sexo + ", email=" + email

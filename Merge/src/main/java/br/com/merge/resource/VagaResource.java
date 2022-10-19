@@ -56,9 +56,18 @@ public class VagaResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Vaga> listaCandidatos() throws ClassNotFoundException, SQLException, IdNotFoundException {
-		conexao = ConnetionFactoy.getConnection();
-		vagabo = new VagaBo(conexao);
-		return vagabo.listar();
+		try {
+			conexao = ConnetionFactoy.abrirConexao();
+			vagabo = new VagaBo(conexao);
+			return vagabo.listar();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			conexao.close();
+		}
+		
+		return null;
+		
 	}
 
 	/**
@@ -74,9 +83,14 @@ public class VagaResource {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Vaga listarVagas(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
-
-		return vagabo.listar(id);
+		
+		try {
+			vagabo = new VagaBo(conexao = ConnetionFactoy.abrirConexao());
+			return vagabo.listar(id);
+		}finally {
+			conexao.close();
+		}
+	
 	}
 
 	/**
@@ -95,7 +109,7 @@ public class VagaResource {
 			throws SQLException, ClassNotFoundException, DadoInvalidoException {
 
 		try {
-			vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
+			vagabo = new VagaBo(conexao = ConnetionFactoy.abrirConexao());
 			vagabo.cadastrar(vaga);
 
 			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
@@ -108,6 +122,8 @@ public class VagaResource {
 
 			return Response.status(400, e.getMessage()).entity("\"mensagem\":" + "\"" + e.getMensagem() + "\"")
 					.type(MediaType.APPLICATION_JSON).build();
+		}finally {
+			conexao.close();
 		}
 
 	}
@@ -127,12 +143,17 @@ public class VagaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Vaga vaga, @PathParam("id") int id)
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
-
-		vaga.setCodigo(id);
-		vagabo.atualizar(vaga);
-
-		return Response.ok().build();
+		
+		try {
+			vagabo = new VagaBo(conexao = ConnetionFactoy.abrirConexao());
+			vaga.setCodigo(id);
+			vagabo.atualizar(vaga);
+			return Response.ok().build();
+		}finally {
+			conexao.close();
+		}
+		
+		
 
 	}
 
@@ -147,8 +168,13 @@ public class VagaResource {
 	@DELETE
 	@Path("{id}")
 	public void excluir(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		vagabo = new VagaBo(conexao = ConnetionFactoy.getConnection());
-
-		vagabo.remover(id);
+		
+		try {
+			vagabo = new VagaBo(conexao = ConnetionFactoy.abrirConexao());
+			vagabo.remover(id);
+		}finally {
+			conexao.close();
+		}
+		
 	}
 }

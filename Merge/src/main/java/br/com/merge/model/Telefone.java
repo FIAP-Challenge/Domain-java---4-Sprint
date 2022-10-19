@@ -14,10 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Telefone{
  
+	
 	private int codigo;
-	/**
-	 * Armazena tipo de telefone
-	 */
     
     private String ddd;
     
@@ -44,7 +42,12 @@ public class Telefone{
 		this.tipo = tipo;
 	}
 	
-	
+	/**
+	 * Cosntrutor com atributos
+	 * @param ddd
+	 * @param numero de telefone
+	 * @param tipo de telefone
+	 */
 	public Telefone(String ddd, String numero, String tipo) {
 		this.ddd = ddd;
 		this.numero = numero;
@@ -52,10 +55,10 @@ public class Telefone{
 		
 	}
 	
-	
-	
-	
-
+	/**
+	 * Retorna o codigo do telefone
+	 * @return codigo do telefone
+	 */
 	public int getCodigo() {
 		return codigo;
 	}

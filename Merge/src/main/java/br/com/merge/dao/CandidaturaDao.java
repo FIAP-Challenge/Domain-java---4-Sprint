@@ -53,7 +53,7 @@ public class CandidaturaDao {
 	public void cadastrar(Candidatura candidatura) throws SQLException, DadoInvalidoException {
 
 		PreparedStatement stmt = conexao.prepareStatement("insert into T_MERGE_CANDIDATURA values "
-				+ "(sq_t_merge_candidatura.nextval,?, ?, ?, ?,to_date(?,'dd/mm/yyyy'), to_date(?,'dd/mm/yyyy'), to_date(?,'dd/mm/yyyy'), ? )",
+				+ "(sq_t_merge_candidatura.nextval,?, ?, ?, ?,to_date(?,'dd/mm/yyyy'), ? )",
 				new String[] { "id_candidatura" });
 		
 		
@@ -79,9 +79,7 @@ public class CandidaturaDao {
 		stmt.setString(3, "A");
 		stmt.setString(4, "Aguardando andamento");
 		stmt.setString(5, f3.format(dataHoje).toString());
-		stmt.setString(6, f3.format(dataHoje).toString());
-		stmt.setString(7, f2.format(data).toString());
-		stmt.setInt(8, candidatura.getScore());
+		stmt.setInt(6, candidatura.getScore());
 
 		try {
 
@@ -108,24 +106,13 @@ public class CandidaturaDao {
 	public void atualizar(Candidatura candidatura) throws SQLException, IdNotFoundException {
 		// Criar o PreparedStatement com o comando SQL de update
 		PreparedStatement stmt = conexao.prepareStatement(
-				"UPDATE T_MERGE_CANDIDATURA SET , NR_SCORE_TER = ?  where ID_CANDIDATURA = ?");
+				"UPDATE T_MERGE_CANDIDATURA SET ,DS_STATUS = ?, DS_RESULTADO = ?, NR_SCORE_TER  where ID_CANDIDATURA = ?");
 
-		Locale brasil = new Locale("pt", "BR");	
-		Calendar dt = Calendar.getInstance();
-		Date dataHoje = dt.getTime();
-		dt.setTime(dataHoje);
-		dataHoje = dt.getTime();
-		DateFormat f3 = DateFormat.getDateInstance(DateFormat.DATE_FIELD, brasil);
 		
-		stmt.setInt(1, candidatura.getCodigoVaga());
-		stmt.setInt(2, candidatura.getCodigoCandidato());
-		stmt.setString(3, candidatura.getStatus());
-		stmt.setString(4, candidatura.getResultado());
-		stmt.setString(5, f3.format(dataHoje).toString());
-		stmt.setString(6, candidatura.getDataInscrição());
-		stmt.setString(7, candidatura.getDataFimInscrição());
-		stmt.setInt(8, candidatura.getScore());
-		stmt.setInt(10, candidatura.getCodigo());
+		stmt.setString(1, candidatura.getStatus());
+		stmt.setString(2, candidatura.getResultado());
+		stmt.setInt(3, candidatura.getScore());
+		stmt.setInt(4, candidatura.getCodigo());
 		int qtd = stmt.executeUpdate();
 
 		if (qtd == 0)
@@ -159,11 +146,9 @@ public class CandidaturaDao {
 			String resultado = result.getString("DS_RESULTADO");
 			int score = result.getInt("NR_SCORE_TER");
 			String dataCadastro = result.getString("DT_CADASTRO");
-			String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
-			String dataFim = result.getString("DT_FIM_INSCRICAO");
 
 			Candidatura candidatura = new Candidatura(codigo, codigoVaga, codigoCandidato, status, resultado, score,
-					dataCadastro, dataInscricao, dataFim);
+					dataCadastro);
 
 			lista.add(candidatura);
 
@@ -198,11 +183,8 @@ public class CandidaturaDao {
 				String resultado = result.getString("DS_RESULTADO");
 				int score = result.getInt("NR_SCORE_TER");
 				String dataCadastro = result.getString("DT_CADASTRO");
-				String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
-				String dataFim = result.getString("DT_FIM_INSCRICAO");
-
 				Candidatura candidatura = new Candidatura(codigo, codigoVaga, codigoCandidato, status, resultado, score,
-						dataCadastro, dataInscricao, dataFim);
+						dataCadastro);
 		
 		return candidatura;
 	
@@ -230,11 +212,9 @@ public class CandidaturaDao {
 			String resultado = result.getString("DS_RESULTADO");
 			int score = result.getInt("NR_SCORE_TER");
 			String dataCadastro = result.getString("DT_CADASTRO");
-			String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
-			String dataFim = result.getString("DT_FIM_INSCRICAO");
 
 			Candidatura candidatura = new Candidatura(codigo, codigoVaga, codigoCandidato, status, resultado, score,
-					dataCadastro, dataInscricao, dataFim);
+					dataCadastro);
 
 			lista.add(candidatura);
 

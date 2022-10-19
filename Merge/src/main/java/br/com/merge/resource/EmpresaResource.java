@@ -66,7 +66,7 @@ public class EmpresaResource {
 	public List<Empresa> listaEmpresas() throws ClassNotFoundException, SQLException, IdNotFoundException {
 
 		try {
-			conexao = ConnetionFactoy.getConnection();
+			conexao = ConnetionFactoy.abrirConexao();
 			emp = new EmpresaBo(conexao);
 			return emp.listar();
 		} catch (IdNotFoundException e) {
@@ -93,9 +93,18 @@ public class EmpresaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Empresa listaCNPJ(@PathParam("cnpj") String cnpj)
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		emp = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
+		
+		try {
+			emp = new EmpresaBo(conexao = ConnetionFactoy.abrirConexao());
 
-		return emp.listar(cnpj);
+			return emp.listar(cnpj);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			conexao.close();
+		}
+		return null;
+	
 	}
 
 	/**
@@ -114,7 +123,7 @@ public class EmpresaResource {
 			throws SQLException, ClassNotFoundException, DadoInvalidoException {
 
 		try {
-			emp = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
+			emp = new EmpresaBo(conexao = ConnetionFactoy.abrirConexao());
 			// GERANDO O CÓDIGO DO PRODUTO
 			emp.cadastrar(empresa);
 
@@ -153,7 +162,7 @@ public class EmpresaResource {
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
 
 		try {
-			emp = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
+			emp = new EmpresaBo(conexao = ConnetionFactoy.abrirConexao());
 			empresa.setCodigo(id);
 			emp.atualizar(empresa);
 
@@ -179,8 +188,15 @@ public class EmpresaResource {
 	@Path("{cnpj}")
 	public void excluir(@PathParam("cnpj") String cnpj)
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		emp = new EmpresaBo(conexao = ConnetionFactoy.getConnection());
-
-		emp.remover(cnpj);
+		
+		try {
+			emp = new EmpresaBo(conexao = ConnetionFactoy.abrirConexao());
+			emp.remover(cnpj);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			conexao.close();
+		}
+		
 	}
 }

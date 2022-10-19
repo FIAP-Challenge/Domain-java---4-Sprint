@@ -3,59 +3,49 @@ package br.com.merge.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *Classe que repesenta um Endereco
- *@author Henrique Cesar
- *@author Dennys Nascimenro 
- *@author Luan Reis
- *@author Gustavo Fonseca
- *@author Rodrigo Machado
+ * Classe que repesenta um Endereco
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
  *
  */
 @XmlRootElement
 public class Endereco {
 	private int codigo;
-	
-	
+
 	/**
-	 * Armazena o cep, bairro, logradouro, complememto, descrição do ponto de referencia, cidade, Estado , sigla do Estado
-	 * e nome do pais
+	 * Armazena o cep,logradouro, numeroLogradouro, bairro, complemento, cidade,
+	 * estado e a siglaEstado
 	 */
-	
-	private String cep;
-	
-	private String logradouro;
-	
-	private String numeroLogradouro;
-	
-	private String bairro;
-	
-    private String complemento, cidade, estado, siglaEstado;
-    
-    
+	private String cep, logradouro, numeroLogradouro, bairro, complemento, cidade, estado, siglaEstado;
 
-    /**
-     * 
-     * Construtor padrão
-     */
-    public Endereco() {
-    }
+	/**
+	 * 
+	 * Construtor padrão
+	 */
+	public Endereco() {
+	}
 
-    /**
-     * Construtor que recebe  cep, bairro, logradouro, complememto, descrição do ponto de referencia, cidade, Estado , sigla do Estado
-	 * e nome do pais e numero do logradouro
-     * @param cep
-     * @param nome Bairro
-     * @param nome Logradouro
-     * @param descrição do Complemento
-     * @param descriçaõ do PontoReferencia
-     * @param nome da Cidade
-     * @param nome do Estado
-     * @param sigla do Estado
-     * @param nome do Pais
-     * @param numero Logradouro
-     */
-	public Endereco(int codigo, String cep, String bairro,String numeroLogradouro, String logradouro, String complemento, 
-			String cidade, String estado, String siglaEstado) {
+	/**
+	 * Construtor que recebe cep, bairro, logradouro, complememto, descrição do
+	 * ponto de referencia, cidade, Estado , sigla do Estado e nome do pais e numero
+	 * do logradouro
+	 * 
+	 * @param cep
+	 * @param nome      Bairro
+	 * @param nome      Logradouro
+	 * @param descrição do Complemento
+	 * @param descriçaõ do PontoReferencia
+	 * @param nome      da Cidade
+	 * @param nome      do Estado
+	 * @param sigla     do Estado
+	 * @param nome      do Pais
+	 * @param numero    Logradouro
+	 */
+	public Endereco(int codigo, String cep, String bairro, String numeroLogradouro, String logradouro,
+			String complemento, String cidade, String estado, String siglaEstado) {
 		this.codigo = codigo;
 		this.cep = cep;
 		this.bairro = bairro;
@@ -66,9 +56,21 @@ public class Endereco {
 		this.siglaEstado = siglaEstado;
 		this.numeroLogradouro = numeroLogradouro;
 	}
-	
+
+	/**
+	 * construtor com atributos
+	 * 
+	 * @param cep
+	 * @param bairro
+	 * @param numeroLogradouro
+	 * @param logradouro
+	 * @param complemento
+	 * @param cidade
+	 * @param estado
+	 * @param siglaEstado
+	 */
 	public Endereco(String cep, String bairro, String numeroLogradouro, String logradouro, String complemento,
-			String cidade, String estado, String siglaEstado ) {
+			String cidade, String estado, String siglaEstado) {
 		this.cep = cep;
 		this.bairro = bairro;
 		this.logradouro = logradouro;
@@ -79,16 +81,27 @@ public class Endereco {
 		this.numeroLogradouro = numeroLogradouro;
 	}
 
+	/**
+	 * Retorna o codigo do endereco
+	 * 
+	 * @return codigo
+	 */
 	public Integer getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * Altera o codigo do endereco
+	 * 
+	 * @param codigo
+	 */
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
 	/**
 	 * Retorna o cep do endereco
+	 * 
 	 * @return cep
 	 */
 	public String getCep() {
@@ -97,6 +110,7 @@ public class Endereco {
 
 	/**
 	 * Altera o cep do endereco
+	 * 
 	 * @param cep
 	 */
 	public void setCep(String cep) {
@@ -105,6 +119,7 @@ public class Endereco {
 
 	/**
 	 * Retorna o nome do bairro do endereco
+	 * 
 	 * @return nome do bairro
 	 */
 	public String getBairro() {
@@ -113,6 +128,7 @@ public class Endereco {
 
 	/**
 	 * Altera o nome do bairro do endereco
+	 * 
 	 * @param nome do Bairro
 	 */
 	public void setBairro(String bairro) {
@@ -121,7 +137,8 @@ public class Endereco {
 
 	/**
 	 * Retorna o nome do logradouro do endereco
-	 * @return  o nome do logradouro
+	 * 
+	 * @return o nome do logradouro
 	 */
 	public String getLogradouro() {
 		return logradouro;
@@ -129,6 +146,7 @@ public class Endereco {
 
 	/**
 	 * Altera o nome do logradouro do endereco
+	 * 
 	 * @param nome do logradouro
 	 */
 	public void setLogradouro(String logradouro) {
@@ -137,7 +155,8 @@ public class Endereco {
 
 	/**
 	 * Retorna a descrição do complemento do endereco
-	 * @return  a descrição do complemento
+	 * 
+	 * @return a descrição do complemento
 	 */
 	public String getComplemento() {
 		return complemento;
@@ -145,6 +164,7 @@ public class Endereco {
 
 	/**
 	 * Altera a descrição do complemento do endereco
+	 * 
 	 * @param a descrição do complemento
 	 */
 	public void setComplemento(String complemento) {
@@ -152,13 +172,9 @@ public class Endereco {
 	}
 
 	/**
-	 * Retorna a descrição do ponto de referencia do endereco
-	 * @return  a descrição do ponto de referencia
-	 */
-
-	/**
 	 * Retorna o nome da cidade do endereco
-	 * @return  o nome da cidade
+	 * 
+	 * @return o nome da cidade
 	 */
 	public String getCidade() {
 		return cidade;
@@ -166,6 +182,7 @@ public class Endereco {
 
 	/**
 	 * Altera o nome da cidade do endereco
+	 * 
 	 * @param o nome da cidade do endereco
 	 */
 	public void setCidade(String cidade) {
@@ -174,7 +191,8 @@ public class Endereco {
 
 	/**
 	 * Retorna o nome do Estado do endereco
-	 * @return  o nome do Estado
+	 * 
+	 * @return o nome do Estado
 	 */
 	public String getEstado() {
 		return estado;
@@ -182,6 +200,7 @@ public class Endereco {
 
 	/**
 	 * Altera o nome do Estado do endereco
+	 * 
 	 * @param o nome do Estado do endereco
 	 */
 	public void setEstado(String estado) {
@@ -190,7 +209,8 @@ public class Endereco {
 
 	/**
 	 * Retorna o nome da sigla do Estado do endereco
-	 * @return  o nome da sigla do Estado
+	 * 
+	 * @return o nome da sigla do Estado
 	 */
 	public String getSiglaEstado() {
 		return siglaEstado;
@@ -198,6 +218,7 @@ public class Endereco {
 
 	/**
 	 * Altera nome da sigla do Estado do endereco
+	 * 
 	 * @param o nome da sigla do Estado do endereco
 	 */
 	public void getSiglaEstado(String siglaEstado) {
@@ -206,7 +227,8 @@ public class Endereco {
 
 	/**
 	 * Retorna o numero do logradouro do endereco
-	 * @return  o numero do logradouro do endereco
+	 * 
+	 * @return o numero do logradouro do endereco
 	 */
 	public String getNumeroLogradouro() {
 		return numeroLogradouro;
@@ -214,23 +236,23 @@ public class Endereco {
 
 	/**
 	 * Altera o numero do logradouro do endereco
+	 * 
 	 * @param o numero do logradouro do endereco
 	 */
 	public void setNumeroLogradouro(String numeroLogradouro) {
 		this.numeroLogradouro = numeroLogradouro;
 	}
 
+	/**
+	 * retorna o toString do Endereco
+	 * 
+	 * @return toString do Endereco
+	 */
 	@Override
 	public String toString() {
 		return "Endereco [cep=" + cep + ", bairro=" + bairro + ", logradouro=" + logradouro + ", complemento="
-				+ complemento +  ", cidade=" + cidade + ", estado=" + estado
-				+ ", siglaEstado=" + siglaEstado + ", numeroLogradouro=" + numeroLogradouro + ", codigo=" + codigo
-				+ "]";
+				+ complemento + ", cidade=" + cidade + ", estado=" + estado + ", siglaEstado=" + siglaEstado
+				+ ", numeroLogradouro=" + numeroLogradouro + ", codigo=" + codigo + "]";
 	}
 
-
-	
-	
-	
-    
 }

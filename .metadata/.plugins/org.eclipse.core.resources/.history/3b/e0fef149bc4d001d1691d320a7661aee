@@ -1,0 +1,37 @@
+package br.com.merge.factory;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+<<<<<<< HEAD
+=======
+/**
+ * Classe que executa a conexao
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
+>>>>>>> 7c266373efd636e028b0e7cd07c554615352a2c5
+public class ConnetionFactoy {
+
+	private static Connection conexao;
+
+	/**
+	 * Obtem uma conexão com o banco de dados
+	 * 
+	 * @return Connection conexão com o banco de dados
+	 */
+	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		conexao = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl", "rm94898", "191195");
+
+		return conexao;
+	}
+
+}

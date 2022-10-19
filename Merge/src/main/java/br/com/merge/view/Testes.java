@@ -31,7 +31,7 @@ public class Testes {
 		Connection conexao = null;
 		try {
 		
-		conexao = ConnetionFactoy.getConnection();
+		conexao = ConnetionFactoy.abrirConexao();
 //		
 //		CandidatoBO cand = new CandidatoBO(conexao);
 //	EnderecoBo ender = new EnderecoBo(conexao);

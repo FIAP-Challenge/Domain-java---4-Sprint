@@ -28,68 +28,136 @@ import br.com.merge.model.Candidatura;
 import br.com.merge.model.Disc;
 import br.com.merge.model.Vaga;
 
+/**
+ * Classe resource do DISC
+ * 
+ * @author Henrique Cesar
+ * @author Dennys Nascimenro
+ * @author Luan Reis
+ * @author Gustavo Fonseca
+ *
+ */
 @Path("/disc/")
 public class DiscResource {
 
 	/**
-	 * Atributo da conexao
+	 * Armazena a conexão
 	 */
 	private Connection conexao;
 
 	/**
-	 * Atributo da discBo
+	 * Armazena o discBO
 	 */
 	DiscBo discBo;
 
+	/**
+	 * Retorna um disc a partir de um id
+	 * 
+	 * @param id
+	 * @throws ClassNotFoundException, SQLException, IdNotFoundException
+	 * @return disc
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Disc listar(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
 
-		return discBo.listar(id);
+		try {
+			discBo = new DiscBo(conexao = ConnetionFactoy.abrirConexao());
+			return discBo.listar(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			conexao.close();
+		}
+		return null;
+
 	}
 
+	/**
+	 * Retorna uma response para o cadastrar
+	 * 
+	 * @param Disc
+	 * @param uriInfo
+	 * @throws SQLException, ClassNotFoundException, DadoInvalidoException
+	 * @return response
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Disc disc, @Context UriInfo uriInfo)
 			throws SQLException, ClassNotFoundException, DadoInvalidoException {
 
-		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
-		// GERANDO O CÓDIGO DO PRODUTO
-		discBo.cadastrar(disc);
+		try {
+			discBo = new DiscBo(conexao = ConnetionFactoy.abrirConexao());
+			// GERANDO O CÓDIGO DO PRODUTO
+			discBo.cadastrar(disc);
 
-		// CONSTRUIR A URI DE RETORNO
-		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+			// CONSTRUIR A URI DE RETORNO
+			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 
-		// PARSEANDO E CONCATENANDO O CÓDIGO DO PRODUTO COM A URL
-		builder.path(Integer.toString(disc.getCodigo()));
-		// RETORNANDO A URL E TESTANDO A SOLICITAÇÃO E REALIZANDO O POST
+			// PARSEANDO E CONCATENANDO O CÓDIGO DO PRODUTO COM A URL
+			builder.path(Integer.toString(disc.getCodigo()));
+			// RETORNANDO A URL E TESTANDO A SOLICITAÇÃO E REALIZANDO O POST
 
-		return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"")
-				.type(MediaType.APPLICATION_JSON).build();
+			return Response.created(builder.build()).entity("\"mensagem\": \"Cadastrado com sucesso\"")
+					.type(MediaType.APPLICATION_JSON).build();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexao.close();
+		}
+		return null;
 
 	}
 
+	/**
+	 * Retorna uma response para o atualizar
+	 * 
+	 * @param disc
+	 * @param id
+	 * @throws ClassNotFoundException, SQLException, IdNotFoundException
+	 * @return response
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Disc disc, @PathParam("id") int id)
 			throws ClassNotFoundException, SQLException, IdNotFoundException {
-		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
 
-		disc.setCodigo(id);
-		discBo.atualizar(disc, id);
+		try {
+			discBo = new DiscBo(conexao = ConnetionFactoy.abrirConexao());
 
-		return Response.ok().build();
+			disc.setCodigo(id);
+			discBo.atualizar(disc, id);
+
+			return Response.ok().build();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexao.close();
+		}
+		return Response.status(400, "nao encontrado").build();
 
 	}
 
+	/**
+	 * Exclui um disc pelo id
+	 * 
+	 * @param id
+	 * @throws ClassNotFoundException, SQLException, IdNotFoundException
+	 */
 	@DELETE
 	@Path("{id}")
 	public void excluir(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
-		discBo = new DiscBo(conexao = ConnetionFactoy.getConnection());
 
-		discBo.remover(id);
+		try {
+			discBo = new DiscBo(conexao = ConnetionFactoy.abrirConexao());
+			discBo.remover(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexao.close();
+		}
+
 	}
 }

@@ -12,7 +12,11 @@ import br.com.merge.model.Requisito;
 import br.com.merge.model.Vaga;
 
 /**
+<<<<<<< HEAD
  * Classe responsável por cadastrar, encontrar e listar
+=======
+ * Classe que repesenta um Curriculo
+>>>>>>> 7c266373efd636e028b0e7cd07c554615352a2c5
  * 
  * @author Henrique Cesar
  * @author Dennys Nascimenro
@@ -33,18 +37,17 @@ public class VagaDao {
 		this.conexao = conexao;
 	}
 
-	/**
-	 * Metodo para cadastrar
-	 * 
-	 * @param vaga
-	 * @throws SQLException
-	 */
+/**
+ * Metodo cadastrar
+ * @param vaga
+ * @throws SQLException
+ */
 	public void cadastrar(Vaga vaga) throws SQLException {
 
 		String requisitos = null;
 
 		PreparedStatement stmt = conexao.prepareStatement(
-				"insert into T_MERGE_VAGAS values " + "(sq_t_merge_vagas.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				"insert into T_MERGE_VAGAS values " + "(sq_t_merge_vagas.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, to_date(?, 'dd/mm/yyyy'), to_date(?, 'dd/mm/yyyy'))");
 
 		if (vaga.getRequisitos() != null) {
 			for (int i = 0; i < vaga.getRequisitos().size(); i++) {
@@ -66,6 +69,8 @@ public class VagaDao {
 		stmt.setInt(9, vaga.getCargaHoraria());
 		stmt.setString(10, vaga.getModoTrabalho());
 		stmt.setString(11, requisitos);
+		stmt.setString(12, vaga.getDataInscricao());
+		stmt.setString(13, vaga.getDataFim());
 
 		stmt.executeUpdate();
 	}
@@ -80,7 +85,7 @@ public class VagaDao {
 	public void atualizar(Vaga vaga) throws SQLException, IdNotFoundException {
 		String requisitos = null;
 		PreparedStatement stmt = conexao.prepareStatement("update T_MERGE_VAGAS set "
-				+ "NM_VAGA = ?, NM_CARGO = ?, DS_CARGO = ?, DS_HISTORIA_EMPRESA = ?, DS_VAGA = ?, VL_REMUNERACAO = ?, DS_BENEFICIOS = ? , HR_CARGA = ?, DS_MODALIDADE_TRABALHO = ? DS_REQUISITOS = ? where ID_VAGAS = ?");
+				+ "NM_VAGA = ?, NM_CARGO = ?, DS_CARGO = ?, DS_HISTORIA_EMPRESA = ?, DS_VAGA = ?, VL_REMUNERACAO = ?, DS_BENEFICIOS = ? , HR_CARGA = ?, DS_MODALIDADE_TRABALHO = ?, DS_REQUISITOS = ?, DT_INICIO_INSCRICAO = to_date(?, 'dd/mm/yyyy'), DT_FIM_INSCRICAO = to_date(?, 'dd/mm/yyyy') where ID_VAGAS = ?");
 
 		if (vaga.getRequisitos() != null) {
 			for (int i = 0; i < vaga.getRequisitos().size(); i++) {
@@ -90,6 +95,8 @@ public class VagaDao {
 			requisitos = requisitos.substring(0, requisitos.length() - 1);
 			requisitos = requisitos.replace("null", "");
 		}
+		
+		System.out.println(vaga.toString());
 
 		stmt.setString(1, vaga.getNome());
 		stmt.setString(2, vaga.getCargo());
@@ -101,7 +108,9 @@ public class VagaDao {
 		stmt.setInt(8, vaga.getCargaHoraria());
 		stmt.setString(9, vaga.getModoTrabalho());
 		stmt.setString(10, requisitos);
-		stmt.setInt(11, vaga.getCodigo());
+		stmt.setString(11, vaga.getDataInscricao());
+		stmt.setString(12, vaga.getDataFim());
+		stmt.setInt(13, vaga.getCodigo());
 		int qtd = stmt.executeUpdate();
 
 		if (qtd == 0)
@@ -109,8 +118,7 @@ public class VagaDao {
 	}
 
 	/**
-	 * Metodo para selecionar pelo id da vaga
-	 * 
+	 * Metodo selecionar por id
 	 * @param id
 	 * @return
 	 * @throws SQLException
@@ -139,6 +147,8 @@ public class VagaDao {
 		int cargaHoraria = result.getInt("HR_CARGA");
 		String modoTrabalho = result.getString("DS_MODALIDADE_TRABALHO");
 		String requisitos = result.getString("DS_REQUISITOS");
+		String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
+		String dataFim = result.getString("DT_FIM_INSCRICAO");
 		Requisito requisitoClasse;
 		List<Requisito> listaRequisitos = new ArrayList<Requisito>();
 
@@ -152,7 +162,7 @@ public class VagaDao {
 		}
 
 		Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
-				remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos);
+				remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos, dataInscricao, dataFim);
 		return vaga;
 	}
 
@@ -181,6 +191,8 @@ public class VagaDao {
 			int cargaHoraria = result.getInt("HR_CARGA");
 			String modoTrabalho = result.getString("DS_MODALIDADE_TRABALHO");
 			String requisitos = result.getString("DS_REQUISITOS");
+			String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
+			String dataFim = result.getString("DT_FIM_INSCRICAO");
 			Requisito requisitoClasse;
 			List<Requisito> listaRequisitos = new ArrayList<Requisito>();
 
@@ -194,7 +206,7 @@ public class VagaDao {
 			}
 
 			Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
-					remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos);
+					remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos, dataInscricao, dataFim);
 
 			lista.add(vaga);
 

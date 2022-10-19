@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *@author Dennys Nascimenro 
  *@author Luan Reis
  *@author Gustavo Fonseca
- *@author Rodrigo Machado
  *
  */
 @XmlRootElement
