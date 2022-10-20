@@ -66,6 +66,26 @@ public class CandidaturaResource {
 		}
 
 	}
+	
+	
+	@GET
+	@Path("/vaga={vaga}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Candidatura> listarPorVagas(@PathParam("vaga") int codigoVaga) throws ClassNotFoundException, SQLException, IdNotFoundException {
+		try {
+			System.out.println("Candidatura por vaga" + codigoVaga);
+			conexao = ConnetionFactoy.abrirConexao();
+			cand = new CandidaturaBo(conexao);
+			return cand.listarPorVaga(codigoVaga);
+		} catch (IdNotFoundException e) {
+			return (List<Candidatura>) Response.status(400, e.getMessage())
+					.entity("\"mensagem\":" + "\"" + e.getMessage() + "\"").type(MediaType.APPLICATION_JSON).build();
+
+		} finally {
+			conexao.close();
+		}
+
+	}
 
 	/**
 	 * Retorna uma response para busca

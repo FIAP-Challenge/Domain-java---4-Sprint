@@ -82,7 +82,7 @@ public class VagaResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Vaga listarVagas(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
+	public List<Vaga> listarVagas(@PathParam("id") int id) throws ClassNotFoundException, SQLException, IdNotFoundException {
 		
 		try {
 			vagabo = new VagaBo(conexao = ConnetionFactoy.abrirConexao());

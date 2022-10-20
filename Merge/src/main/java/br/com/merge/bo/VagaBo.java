@@ -51,7 +51,7 @@ public class VagaBo {
 	 * 
 	 * @para id
 	 */
-	public Vaga listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+	public List<Vaga> listar(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
 
 		return vagadao.select(id);
 	}

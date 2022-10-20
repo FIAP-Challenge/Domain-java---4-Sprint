@@ -59,6 +59,12 @@ public class CandidaturaBo {
 		return candidatura.select(id);
 	}
 
+	
+	public List<Candidatura> listarPorVaga(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+		System.out.println("Candidatura por vaga" + id);
+		return candidatura.selectVaga(id);
+	}
+	
 	/**
 	 * Metodo para listagem da candidatura
 	 * 

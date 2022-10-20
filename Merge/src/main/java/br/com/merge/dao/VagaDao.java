@@ -124,46 +124,49 @@ public class VagaDao {
 	 * @throws SQLException
 	 * @throws IdNotFoundException
 	 */
-	public Vaga select(int id) throws SQLException, IdNotFoundException {
+	public List<Vaga> select(int id) throws SQLException, IdNotFoundException {
 
-		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_VAGAS where ID_vagas = ?");
+		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_VAGAS where ID_EMPRESA = ?");
 
 		stmt.setInt(1, id);
-
 		ResultSet result = stmt.executeQuery();
+		List<Vaga> lista = new ArrayList<Vaga>();
 
-		if (!result.next()) {
-			throw new IdNotFoundException("VAGA NAO ENCONTRADA");
-		}
-		int codigo = result.getInt("ID_VAGAS");
-		int codigoEmpresa = result.getInt("ID_EMPRESA");
-		String nome = result.getString("NM_VAGA");
-		String cargo = result.getString("NM_CARGO");
-		String descricaoCargo = result.getString("DS_CARGO");
-		String historiaEmpresa = result.getString("DS_HISTORIA_EMPRESA");
-		String descricaoVaga = result.getString("DS_VAGA");
-		String remuneracao = result.getString("VL_REMUNERACAO");
-		String beneficios = result.getString("DS_BENEFICIOS");
-		int cargaHoraria = result.getInt("HR_CARGA");
-		String modoTrabalho = result.getString("DS_MODALIDADE_TRABALHO");
-		String requisitos = result.getString("DS_REQUISITOS");
-		String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
-		String dataFim = result.getString("DT_FIM_INSCRICAO");
-		Requisito requisitoClasse;
-		List<Requisito> listaRequisitos = new ArrayList<Requisito>();
+		while (result.next()) {
 
-		if (requisitos != null) {
-			String[] listaR = requisitos.split(",");
+			int codigo = result.getInt("ID_VAGAS");
+			int codigoEmpresa = result.getInt("ID_EMPRESA");
+			String nome = result.getString("NM_VAGA");
+			String cargo = result.getString("NM_CARGO");
+			String descricaoCargo = result.getString("DS_CARGO");
+			String historiaEmpresa = result.getString("DS_HISTORIA_EMPRESA");
+			String descricaoVaga = result.getString("DS_VAGA");
+			String remuneracao = result.getString("VL_REMUNERACAO");
+			String beneficios = result.getString("DS_BENEFICIOS");
+			int cargaHoraria = result.getInt("HR_CARGA");
+			String modoTrabalho = result.getString("DS_MODALIDADE_TRABALHO");
+			String requisitos = result.getString("DS_REQUISITOS");
+			String dataInscricao = result.getString("DT_INICIO_INSCRICAO");
+			String dataFim = result.getString("DT_FIM_INSCRICAO");
+			Requisito requisitoClasse;
+			List<Requisito> listaRequisitos = new ArrayList<Requisito>();
 
-			for (int i = 0; i < listaR.length; i++) {
-				listaRequisitos.add(requisitoClasse = new Requisito(listaR[i]));
+			if (requisitos != null) {
+				String[] listaR = requisitos.split(",");
 
+				for (int i = 0; i < listaR.length; i++) {
+					listaRequisitos.add(requisitoClasse = new Requisito(listaR[i]));
+
+				}
 			}
-		}
 
-		Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
-				remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos, dataInscricao, dataFim);
-		return vaga;
+			Vaga vaga = new Vaga(codigo, codigoEmpresa, nome, cargo, descricaoCargo, historiaEmpresa, descricaoVaga,
+					remuneracao, beneficios, cargaHoraria, modoTrabalho, listaRequisitos, dataInscricao, dataFim);
+
+			lista.add(vaga);
+		}
+		return lista;
+
 	}
 
 	/**
@@ -214,6 +217,7 @@ public class VagaDao {
 
 		return lista;
 	}
+	
 
 	/**
 	 * Metodo para remover

@@ -156,6 +156,37 @@ public class CandidaturaDao {
 		
 		return lista;
 	}
+	
+	
+	public List<Candidatura> selectVaga(int id) throws SQLException, IdNotFoundException, ClassNotFoundException {
+
+		PreparedStatement stmt = conexao.prepareStatement("select * from T_MERGE_CANDIDATURA where ID_VAGAS = ?");
+
+		stmt.setInt(1, id);
+		List<Candidatura> lista = new ArrayList<Candidatura>();
+
+		ResultSet result = stmt.executeQuery();
+
+		while (result.next()) {
+
+			int codigo = result.getInt("ID_CANDIDATURA");
+			int codigoVaga = result.getInt("ID_VAGAS");
+			int codigoCandidato = result.getInt("ID_CANDIDATO");
+			String status = result.getString("DS_STATUS");
+			String resultado = result.getString("DS_RESULTADO");
+			int score = result.getInt("NR_SCORE_TER");
+			String dataCadastro = result.getString("DT_CADASTRO");
+
+			Candidatura candidatura = new Candidatura(codigo, codigoVaga, codigoCandidato, status, resultado, score,
+					dataCadastro);
+
+			System.out.println(candidatura);
+			lista.add(candidatura);
+
+		}
+		
+		return lista;
+	}
 		
 	/**
 	 * Metodo para selecionar uma candidatura
