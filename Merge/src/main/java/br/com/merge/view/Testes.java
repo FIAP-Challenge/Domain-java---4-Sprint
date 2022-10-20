@@ -1,25 +1,14 @@
 package br.com.merge.view;
 
-import java.lang.System.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import br.com.merge.factory.ConnetionFactoy;
-import br.com.merge.bo.CandidatoBO;
-import br.com.merge.bo.EnderecoBo;
 import br.com.merge.excetion.IdNotFoundException;
-import br.com.merge.model.Candidato;
-import br.com.merge.model.Curso;
-import br.com.merge.model.Endereco;
-import br.com.merge.model.Telefone;
+import br.com.merge.factory.ConnetionFactoy;
 
 public class Testes {
 	
